@@ -1,8 +1,8 @@
 package logica;
 
+import java.util.ArrayList;
 import java.util.Date;
-
-
+import java.util.List;
 
 public class Salida {
 
@@ -12,6 +12,7 @@ public class Salida {
 	private Integer turistaMax;
 	private String lugar;
 	private Date fechaAlta;
+	private List<Salida> inscripciones = new ArrayList<>();
 	
 	public Salida(String nombre, Date fecha, Integer hora, Integer turistaMax, String lugar, Date fechaAlta) {
 		super();
@@ -71,8 +72,20 @@ public class Salida {
 		this.fechaAlta = fechaAlta;
 	}
 	
-	public DataSalida getDataSalida(){
-		return new DataSalida(this.getNombre(),this.getFecha(),this.getHora(), this.getTuristaMax(),this.getLugar(),this.getFechaAlta());
-	}
 	
+	
+	public void agregarInscripcion(DataSalida sali) {
+		Salida i = new Salida(sali.getNombre(),sali.getFecha(),sali.getHora(),sali.getTuristaMax(),sali.getLugar(),sali.getFechaAlta());
+		inscripciones.add(i);
+	}
+
+	
+	public ArrayList<DataInscripcion> obtenerInscripciones(){
+		ArrayList<DataInscripcion> lista = new ArrayList<>();
+		for(Salida i:inscripciones) {
+			lista.add(i.getDataInscripcion());
+		}
+		return lista;
+	}
+  
 }

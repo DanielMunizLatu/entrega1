@@ -30,7 +30,7 @@ public class ManejadorUsuario {
     }
 
     public Usuario obtenerUsuario(String ci) {     // Recibo una cedula y devuelvo el objeto Usuario
-        return ((Usuario) usuariosCI.get(ci));
+        return ((Usuario) usuariosCI.get(ci));     // Este get es de la API
     }
 
     public Usuario[] getUsuarios() {      // Devuelve la coleccion completa de los usuarios en array

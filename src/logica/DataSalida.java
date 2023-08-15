@@ -2,6 +2,7 @@ package logica;
 
 import java.util.Date;
 
+
 public class DataSalida {
 	
 	private String nombre;
