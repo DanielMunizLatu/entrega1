@@ -1,7 +1,5 @@
 package logica;
 
-
-
 /**
  * Datatype para transportar la informacion de un usuario entre capa logica y de presentacion.
  * En Java los datatypes se definen con setters y getters, y se denominan JavaBean.

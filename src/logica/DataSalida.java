@@ -2,10 +2,8 @@ package logica;
 
 import java.util.Date;
 
-
-
-public class Salida {
-
+public class DataSalida {
+	
 	private String nombre;
 	private Date fecha;
 	private Integer hora;
@@ -13,7 +11,7 @@ public class Salida {
 	private String lugar;
 	private Date fechaAlta;
 	
-	public Salida(String nombre, Date fecha, Integer hora, Integer turistaMax, String lugar, Date fechaAlta) {
+	public DataSalida(String nombre, Date fecha, Integer hora, Integer turistaMax, String lugar, Date fechaAlta) {
 		super();
 		this.nombre = nombre;
 		this.fecha = fecha;
@@ -70,9 +68,7 @@ public class Salida {
 	public void setFechaAlta(Date fechaAlta) {
 		this.fechaAlta = fechaAlta;
 	}
+
 	
-	public DataSalida getDataSalida(){
-		return new DataSalida(this.getNombre(),this.getFecha(),this.getHora(), this.getTuristaMax(),this.getLugar(),this.getFechaAlta());
-	}
 	
 }
