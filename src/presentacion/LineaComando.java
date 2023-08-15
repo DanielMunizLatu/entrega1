@@ -14,8 +14,7 @@ public class LineaComando {
 		//static Scanner entrada = new Scanner(System.in);
 		static void menu() {
 			System.out.println("USUARIOS\n"
-					+ "1. Alta usuario\n"
-					+ "2. Consulta usuario\n"
+					+ "1. Alta usuario\n"					+ "2. Consulta usuario\n"
 					+ "3. Lista Usuario\n"
 					+ "4. Salir\n"
 					+ "5. OPCION: ");	
