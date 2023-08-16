@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
-
 public class Actividad {
 	
 	private String nombre;
@@ -64,7 +62,7 @@ public class Actividad {
 		Salida sali;
 		boolean encontre=false;
 		while ((i < salidas.size()) && (!encontre)) {
-		    sali=salidas.get(i);
+		    sali=salidas.get(i);                      // sali tiene el objeto de la poscion i
 		    if (sali.getNombre().equals(nombre)) {
 		    	salidas.remove(i);
 		    	encontre=true;
@@ -72,6 +70,7 @@ public class Actividad {
 		    i++;
 		}
 	}	
+	// Devuelve un arreglo con los datos de todas las salidas
 	public ArrayList<DataSalida> obtenerSalidas(){
 		ArrayList<DataSalida> lista = new ArrayList<>();
 		for(Salida i:salidas) {

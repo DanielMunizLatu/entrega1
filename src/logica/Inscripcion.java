@@ -7,12 +7,22 @@ public class Inscripcion {
 	private Date fechaInscripcion;
 	private Integer CantidadTuristas;
 	private Integer Costo;
+	private String nickTurista;
 	
-	public Inscripcion(Date fechaInscripcion, Integer cantidadTuristas, Integer costo) {
+	public Inscripcion(Date fechaInscripcion, Integer cantidadTuristas, Integer costo,String Turista) {
 		super();
 		this.fechaInscripcion = fechaInscripcion;
 		CantidadTuristas = cantidadTuristas;
 		Costo = costo;
+		nickTurista=Turista;
+	}
+
+	public String getnickTurista() {
+		return nickTurista;
+	}
+
+	public void setTuri(String Turista) {
+		this.nickTurista = Turista;
 	}
 
 	public Date getFechaInscripcion() {
@@ -39,5 +49,7 @@ public class Inscripcion {
 		Costo = costo;
 	}
 	
-    
+	public DataInscripcion getInscripcion() {
+		return new DataInscripcion(this.getFechaInscripcion(),this.getCantidadTuristas(),this.getCosto(),this.getnickTurista());
+	}
 }

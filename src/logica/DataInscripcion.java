@@ -7,12 +7,22 @@ public class DataInscripcion {
 	private Date fechaInscripcion;
 	private Integer CantidadTuristas;
 	private Integer Costo;
+	private String Turista;
 	
-	public DataInscripcion(Date fechaInscripcion, Integer cantidadTuristas, Integer costo) {
+	public DataInscripcion(Date fechaInscripcion, Integer cantidadTuristas, Integer costo, String turista) {
 		super();
 		this.fechaInscripcion = fechaInscripcion;
 		CantidadTuristas = cantidadTuristas;
 		Costo = costo;
+		Turista = turista;
+	}
+
+	public String getTurista() {
+		return Turista;
+	}
+
+	public void setTurista(String turista) {
+		Turista = turista;
 	}
 
 	public Date getFechaInscripcion() {
