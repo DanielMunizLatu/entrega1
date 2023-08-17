@@ -3,6 +3,7 @@ package presentacion;
 import javax.swing.JInternalFrame;
 
 import excepciones.UsuarioRepetidoException;
+import logica.DataProveedor;
 import logica.DataTurista;
 import logica.DataUsuario;
 import logica.IControladorUsuario;
@@ -30,7 +31,7 @@ import javax.swing.JComboBox;
 @SuppressWarnings("serial")
 public class CrearUsuario extends JInternalFrame {
 
-    // Controlador de usuarios que se utilizar√° para las acciones del JFrame
+    // Controlador de usuarios que se utilizara° para las acciones del JFrame
     private IControladorUsuario controlUsr;
     
     // Los componentes graficos se agregan como atributos de la clase
@@ -295,12 +296,12 @@ public class CrearUsuario extends JInternalFrame {
             	// Cargar el DataUsuario
              	DataUsuario du=null;
 				if (valorCombo=="Turista") {
-					//System.out.print("Entro por turista");
+					System.out.print("Entro por turista");
                 	du = new DataTurista(nombreU, apellidoU, ciU,nac);
 				}	
 				if ( valorCombo=="Proveedor") {
-					//System.out.print("Entro por turista");
-                	du = new DataTurista(nombreU, apellidoU, ciU,desc); 	
+					System.out.print("Entro por proveedor");
+                	du = new DataProveedor(nombreU, apellidoU, ciU,desc); 	
 				}
 				controlUsr.registrarUsuario(du);  // Esto registra al objeto pasandole el DataType
 

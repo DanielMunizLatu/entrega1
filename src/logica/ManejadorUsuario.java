@@ -26,7 +26,7 @@ public class ManejadorUsuario {
 
     public void addUsuario(Usuario usu) {
         String ci = usu.getCedulaIdentidad();    // Get de la cedula
-        usuariosCI.put(ci, usu);                 // agrego al usuario a la coleccion
+        usuariosCI.put(ci, usu);                 // agrego al usuario a la coleccion, o modifico
     }
 
     public Usuario obtenerUsuario(String ci) {     // Recibo una cedula y devuelvo el objeto Usuario

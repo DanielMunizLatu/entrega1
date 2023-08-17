@@ -24,6 +24,7 @@ public class Principal {
     private CrearUsuario creUsrInternalFrame;     // Frame interno para dar de alta usuario
     private ConsultarUsuario conUsrInternalFrame; // Frame interno para consultar por usuario
     private ListaUsuarios lisUsrInternalFrame;    // Frame interno para listar usuario 
+    private ModificarUsuario modUsrInternalFrame; // Frame para modificar el usuario
 
     /**
      * Launch the application.
@@ -65,11 +66,16 @@ public class Principal {
 
         lisUsrInternalFrame = new ListaUsuarios(ICU);
         lisUsrInternalFrame.setVisible(false);
+        
+        modUsrInternalFrame = new ModificarUsuario(ICU);
+        modUsrInternalFrame.setVisible(false);
+        
         frmGestionDeUsuarios.getContentPane().setLayout(null);
 
-        frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame); /*Agrego los 3 internos al principal */
+        frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame); /*Agrego los 4 internos al principal */
         frmGestionDeUsuarios.getContentPane().add(creUsrInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
+        frmGestionDeUsuarios.getContentPane().add(modUsrInternalFrame); 
     }
 
     /**
@@ -133,5 +139,18 @@ public class Principal {
             }
         });
         menuUsuarios.add(mntmListaUsuarios);
+        
+        //Ahora el modificar usuario
+        
+        JMenuItem mntModificarUsuarios = new JMenuItem("ModificarUsuarios");
+        mntModificarUsuarios.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Muestro el InternalFrame para ver la lista de todos los usuarios,
+                // cargando previamente la lista
+            	//modUsrInternalFrame.cargarUsuarios();   // Llamo al cargar Usuario en la clase de ese internal frame
+            	modUsrInternalFrame.setVisible(true);  // Pongo visible el internalFrame visible
+            }
+        });
+        menuUsuarios.add(mntModificarUsuarios);
     }
 }

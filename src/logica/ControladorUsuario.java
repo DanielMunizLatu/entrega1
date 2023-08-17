@@ -17,6 +17,7 @@ public class ControladorUsuario implements IControladorUsuario {
     public void registrarUsuario(DataUsuario usuario) throws UsuarioRepetidoException {
         ManejadorUsuario mu = ManejadorUsuario.getinstance();
         Usuario u = mu.obtenerUsuario(usuario.getCedulaIdentidad());  // Lo voy a buscar a la coleccion
+        
         if (u != null)  // Si lo encontre es porque ya existe
             throw new UsuarioRepetidoException("El usuario " + usuario.getCedulaIdentidad() + " ya esta registrado");
 
@@ -29,6 +30,8 @@ public class ControladorUsuario implements IControladorUsuario {
         		
         // Agrego el usuario a la coleccion
         mu.addUsuario(nuevoUsuario);
+        if (nuevoUsuario instanceof Turista)
+        	System.out.println("Es turista nomas");
     }
 
     // Devuelvo una DataUsuario para ser mostrado en la capa de presentacion
@@ -73,4 +76,31 @@ public class ControladorUsuario implements IControladorUsuario {
             throw new UsuarioNoExisteException("No existen usuarios registrados");
 
     }
+    public void modificarUsuario(DataUsuario usuario)  {
+        
+    	ManejadorUsuario mu = ManejadorUsuario.getinstance();
+      //  Usuario u = mu.obtenerUsuario(usuario.getCedulaIdentidad());  // Lo voy a buscar a la coleccion
+    
+        Usuario nuevoUsuario=null;
+        if (usuario instanceof DataTurista) {
+        	nuevoUsuario = new Turista (usuario.getNombre(),usuario.getApellido(),usuario.getCedulaIdentidad(),((DataTurista) usuario).getNacionalidad());
+        	System.out.println("A modificar entro con un data type de turista");
+        }
+        	if (usuario instanceof DataProveedor)
+        	nuevoUsuario = new Proveedor (usuario.getNombre(),usuario.getApellido(),usuario.getCedulaIdentidad(),((DataProveedor) usuario).getDescripcion());
+        		
+        System.out.println(nuevoUsuario.getNombre());
+		System.out.println(nuevoUsuario.getApellido());
+		
+		if (usuario instanceof DataTurista)
+		   //System.out.println(((Turista) nuevoUsuario).getNacionalidad());
+			System.out.println("Soy Turista");
+		if (usuario instanceof DataProveedor)
+			   //System.out.println(((Turista) nuevoUsuario).getNacionalidad());
+				System.out.println("Soy proveedor");
+		
+        // Agrego el usuario a la coleccion
+        mu.addUsuario(nuevoUsuario);
+    }
+   
 }
