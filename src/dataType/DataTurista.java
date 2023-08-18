@@ -1,4 +1,4 @@
-package excepciones;
+package dataType;
 
 public class DataTurista extends DataUsuario{
 	

@@ -2,16 +2,18 @@ package presentacion;
 
 import javax.swing.JInternalFrame;
 
-import excepciones.DataProveedor;
-import excepciones.DataTurista;
-import excepciones.DataUsuario;
-import excepciones.UsuarioNoExisteException;
 import logica.IControladorUsuario;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import dataType.DataProveedor;
+import dataType.DataTurista;
+import dataType.DataUsuario;
+import excepciones.UsuarioNoExisteException;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener; // Para los eventos. ej de boton
 import java.awt.event.ActionEvent;

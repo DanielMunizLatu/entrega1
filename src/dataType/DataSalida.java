@@ -1,4 +1,4 @@
-package excepciones;
+package dataType;
 
 import java.util.Date;
 

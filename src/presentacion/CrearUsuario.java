@@ -2,15 +2,17 @@ package presentacion;
 
 import javax.swing.JInternalFrame;
 
-import excepciones.DataProveedor;
-import excepciones.DataTurista;
-import excepciones.DataUsuario;
-import excepciones.UsuarioRepetidoException;
 import logica.IControladorUsuario;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+
+import dataType.DataProveedor;
+import dataType.DataTurista;
+import dataType.DataUsuario;
+import excepciones.UsuarioRepetidoException;
+
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;

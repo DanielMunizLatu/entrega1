@@ -1,7 +1,7 @@
 package logica;
 
-import excepciones.DataProveedor;
-import excepciones.DataUsuario;
+import dataType.DataProveedor;
+import dataType.DataUsuario;
 
 public class Proveedor  extends Usuario{
 	

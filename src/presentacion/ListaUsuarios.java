@@ -3,13 +3,15 @@ package presentacion;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
-import excepciones.DataUsuario;
-import excepciones.UsuarioNoExisteException;
 import logica.IControladorUsuario;
 
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import dataType.DataUsuario;
+import excepciones.UsuarioNoExisteException;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;

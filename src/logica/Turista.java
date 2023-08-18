@@ -1,7 +1,7 @@
 package logica;
 
-import excepciones.DataTurista;
-import excepciones.DataUsuario;
+import dataType.DataTurista;
+import dataType.DataUsuario;
 
 public class Turista extends Usuario{
 	
