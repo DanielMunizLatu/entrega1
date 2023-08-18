@@ -1,4 +1,4 @@
-package logica;
+package excepciones;
 
 /**
  * Datatype para transportar la informacion de un usuario entre capa logica y de presentacion.

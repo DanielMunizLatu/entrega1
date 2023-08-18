@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import dataType.DataInscripcion;
+import excepciones.DataSalida;
 
 public class Salida {
 

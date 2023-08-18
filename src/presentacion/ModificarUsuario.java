@@ -11,11 +11,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import excepciones.DataProveedor;
+import excepciones.DataTurista;
+import excepciones.DataUsuario;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
-import logica.DataProveedor;
-import logica.DataTurista;
-import logica.DataUsuario;
 import logica.IControladorUsuario;
 
 @SuppressWarnings("serial")

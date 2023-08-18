@@ -1,6 +1,6 @@
 package logica;
 
-
+import excepciones.DataUsuario;
 
 /**Representa a un usuario en el sistema con nombre, apellido y cedula de identidad. */
 public abstract class  Usuario {

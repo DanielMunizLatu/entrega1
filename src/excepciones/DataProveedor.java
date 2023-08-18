@@ -1,4 +1,4 @@
-package logica;
+package excepciones;
 
 public class DataProveedor extends DataUsuario{
 

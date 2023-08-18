@@ -2,10 +2,10 @@ package presentacion;
 
 import javax.swing.JInternalFrame;
 
+import excepciones.DataProveedor;
+import excepciones.DataTurista;
+import excepciones.DataUsuario;
 import excepciones.UsuarioNoExisteException;
-import logica.DataProveedor;
-import logica.DataTurista;
-import logica.DataUsuario;
 import logica.IControladorUsuario;
 
 import javax.swing.JFrame;

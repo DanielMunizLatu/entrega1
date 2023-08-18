@@ -1,4 +1,4 @@
-package logica;
+package excepciones;
 
 import java.util.Date;
 

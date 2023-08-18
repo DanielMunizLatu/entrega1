@@ -1,5 +1,6 @@
 package logica;
 
+import excepciones.DataUsuario;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 

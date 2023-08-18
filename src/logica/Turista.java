@@ -1,5 +1,8 @@
 package logica;
 
+import excepciones.DataTurista;
+import excepciones.DataUsuario;
+
 public class Turista extends Usuario{
 	
 	private String nacionalidad;
