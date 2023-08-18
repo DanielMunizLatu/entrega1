@@ -38,4 +38,7 @@ public class Fabrica {
         return new ControladorUsuario();
     }
 
+    public IControladorActividad getIControladorActividad() {
+        return new ControladorActividad();
+    }
 }

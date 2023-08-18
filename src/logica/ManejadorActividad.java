@@ -25,7 +25,7 @@ public class ManejadorActividad {
 	        actividadNombre.put(nom, act);                // agrego la actividad a la coleccion
 	    }
 	 
-	 public Actividad obtenerUsuario(String nom) {           // Recibo un nombre y devuelvo el objeto Actividad
+	 public Actividad obtenerActividad(String nom) {           // Recibo un nombre y devuelvo el objeto Actividad
 	        return ((Actividad) actividadNombre.get(nom));   // Este get es de la API
 	    }
 	 

@@ -4,25 +4,28 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import dataType.DataActividad;
 import dataType.DataSalida;
+import dataType.DataTurista;
+import dataType.DataUsuario;
 
 public class Actividad {
 	
 	private String nombre;
 	private Integer costo;
 	private Date fechaHasta;
-	private Proveedor prove;
+	private String prove;
 	private List<Salida> salidas = new ArrayList<>();
 	
-	public Proveedor getProve() {
+	public String getProve() {
 		return prove;
 	}
 
-	public void setProve(Proveedor prove) {
+	public void setProve(String prove) {
 		this.prove = prove;
 	}
 
-	public Actividad(String nombre, Integer costo, Date fechaHasta,Proveedor prov ) {
+	public Actividad(String nombre, Integer costo, Date fechaHasta,String prov ) {
 		super();
 		this.nombre = nombre;
 		this.costo = costo;
@@ -54,6 +57,11 @@ public class Actividad {
 		this.fechaHasta = fechaHasta;
 	}
 
+	public DataActividad getDataActividad() {
+		return new DataActividad(this.getNombre(),this.getCosto(),this.getFechaHasta(),this.getProve());
+	}
+	
+	// Gestion de la coleccion de salidas
 	public void agregarSalida(DataSalida sali) {
 		Salida i = new Salida(sali.getNombre(),sali.getFecha(),sali.getHora(),sali.getTuristaMax(),sali.getLugar(),sali.getFechaAlta());
 		salidas.add(i);

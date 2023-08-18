@@ -4,10 +4,6 @@ import dataType.DataUsuario;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 
-/**
- * @author TProg2017
- *
- */
 public interface IControladorUsuario {
     
     /**
@@ -26,9 +22,6 @@ public interface IControladorUsuario {
      * @throws UsuarioNoExisteException Si la cédula del usuario no está registrada en el sistema.
      */
     public abstract DataUsuario verInfoUsuario(String ci) throws UsuarioNoExisteException;
-
-   
-    
     /**
      * Retorna la informacion de todos los usuarios registrados en el sistema.
      * @return Informacion de los usuarios del sistema.

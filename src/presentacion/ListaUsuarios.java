@@ -83,6 +83,7 @@ public class ListaUsuarios extends JInternalFrame {
     // Se invoca el metodo antes de hacer visible el JInternalFrame
     
     public void cargarUsuarios() {
+    	
         DefaultComboBoxModel<DataUsuario> model; // Este modelo se crea para carga el combo 
         try {                                    // En model esta lo que vamos a carga al combo
             model = new DefaultComboBoxModel<DataUsuario>(controlUsr.getUsuarios()); //Aca se carga

@@ -1,33 +1,44 @@
 package presentacion;
 
-import java.awt.EventQueue;
-
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JTextField;
 
+import dataType.DataActividad;
+import dataType.DataProveedor;
+import dataType.DataUsuario;
+import excepciones.ActividadNoExisteException;
+import excepciones.UsuarioNoExisteException;
+import logica.IControladorActividad;
 import logica.IControladorUsuario;
-import java.awt.GridLayout;
+
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class CrearActividad extends JInternalFrame {
 	
-	 // Controlador de usuarios que se utilizara¡ para las acciones del JFrame
-    private IControladorUsuario controlUsr;
+	 // Controlador de proveedor que se utilizara¡ para las acciones del JFrame
+  
 	private JTextField textFieldNombre;
 	private JTextField textFieldCosto;
 	private JTextField textFieldFechaHasta;
-	private JComboBox proveedor;
-    
-	public CrearActividad(IControladorUsuario icu) {
+	private JComboBox<DataUsuario> proveedor;
+	private IControladorActividad controlAct;
+	private IControladorUsuario controlUsr;
+	
+	
+	public CrearActividad(IControladorActividad ica,IControladorUsuario icu) {
 		
-		// Se inicializa con el controlador de usuarios
+		// Se inicializa con el controlador de actividades y usuarios
+        controlAct = ica;
         controlUsr = icu;
 		
      // Propiedades del JInternalFrame como dimension, posicion dentro del frame, etc.
@@ -116,7 +127,7 @@ public class CrearActividad extends JInternalFrame {
 		getContentPane().add(lblNewLabel_4, gbc_lblNewLabel_4);
 		
 		// Combo Box para el proveedor
-        proveedor = new JComboBox();
+        proveedor = new JComboBox<DataUsuario>();
         GridBagConstraints gbc_proveedor = new GridBagConstraints();
         gbc_proveedor.gridwidth = 2;
         gbc_proveedor.insets = new Insets(0, 0, 5, 5);
@@ -127,13 +138,40 @@ public class CrearActividad extends JInternalFrame {
         gbc_proveedor.gridwidth = 2;
         gbc_proveedor.gridx = 1;
         getContentPane().add(proveedor, gbc_proveedor);
-		
-	}
 	
+        System.out.println("Di click en el combo 1");
+        //Ahora cargamos el comboBox proveedores
+       /* proveedor.addActionListener(new ActionListener() {
+        	
+            public void actionPerformed(ActionEvent e) {
+                // Acción a realizar cuando se hace clic en el JComboBox
+            	System.out.println("Di click en el combo");
+                cargarProveedores();
+            }
+
 		
+        });*/
 	
-     
-   
-     
+	}    // Aca se cierra el constructor
+		    
+        // Metodo que carga el combo con los proveedores
+	    //System.out.println("Di click en el combo 1");
+	  
+        public void cargarProveedores() {
+        	
+        	System.out.println("Entre a levantar los usuarios");
+            DefaultComboBoxModel<DataUsuario> model; // Este modelo se crea para carga el combo 
+           
+            try {                                    // En model esta lo que vamos a carga al combo
+            	model = new DefaultComboBoxModel<DataUsuario>(controlUsr.getUsuarios()); //Aca se carga
+                //proveedor = new JComboBox<DataUsuario>(model);
+            	proveedor.setModel(model);        //VER EN LA API DefaultComboBoxModel
+            } catch (UsuarioNoExisteException e) {
+                // No se imprime mensaje de error sino que simplemente no se muestra ningun elemento
+            }
+
+        }
+        
+	
      }
 

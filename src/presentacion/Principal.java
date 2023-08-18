@@ -7,6 +7,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import logica.Fabrica;   // Uso Fabricas de la clase logica
+import logica.IControladorActividad;
 import logica.IControladorUsuario;  // Lo mismo para controlador de usuarios
 
 import javax.swing.JMenu;
@@ -25,7 +26,8 @@ public class Principal {
     private ConsultarUsuario conUsrInternalFrame; // Frame interno para consultar por usuario
     private ListaUsuarios lisUsrInternalFrame;    // Frame interno para listar usuario 
     private ModificarUsuario modUsrInternalFrame; // Frame para modificar el usuario
-	private CrearActividad creActiInternalFrame;  // Frame para alta de actividad
+	private IControladorActividad ICA;
+    private CrearActividad creActiInternalFrame;  // Frame para alta de actividad
 
     /**
      * Launch the application.
@@ -54,6 +56,7 @@ public class Principal {
         Fabrica fabrica = Fabrica.getInstance();  // Se crea una instancia unica de fabrica, se guarda en la variable fabrica
         ICU = fabrica.getIControladorUsuario();   // Se devuelve una instancia unica controlador de usuario
         
+        ICA = fabrica.getIControladorActividad();
         // Se crean los tres InternalFrame y se incluyen al Frame principal ocultos.
         // De esta forma, no es necesario crear y destruir objetos lo que enlentece la ejecucion.
         // Cada InternalFrame usa un layout diferente, simplemente para mostrar distintas opciones.
@@ -73,7 +76,7 @@ public class Principal {
         modUsrInternalFrame.setVisible(false);
         
         // El de crear Actividad
-        creActiInternalFrame = new CrearActividad(ICU);
+        creActiInternalFrame = new CrearActividad(ICA,ICU);
         creActiInternalFrame.setLocation(30, 35);
         creActiInternalFrame.setVisible(false);
         
@@ -172,6 +175,7 @@ public class Principal {
         creRegistrarActividad.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Muestro el InternalFrame para registrar actividad
+            	creActiInternalFrame.cargarProveedores();     // PARA CARGAR COMBO PROVEEDORES
             	creActiInternalFrame.setVisible(true);       // Pongo visible el internalFrame 
             }
         });
