@@ -2,6 +2,8 @@ package logica;
 
 import java.util.Date;
 
+import dataType.DataInscripcion;
+
 public class Inscripcion {
 	
 	private Date fechaInscripcion;

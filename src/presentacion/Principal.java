@@ -25,6 +25,7 @@ public class Principal {
     private ConsultarUsuario conUsrInternalFrame; // Frame interno para consultar por usuario
     private ListaUsuarios lisUsrInternalFrame;    // Frame interno para listar usuario 
     private ModificarUsuario modUsrInternalFrame; // Frame para modificar el usuario
+	private CrearActividad creActiInternalFrame;  // Frame para alta de actividad
 
     /**
      * Launch the application.
@@ -54,7 +55,7 @@ public class Principal {
         ICU = fabrica.getIControladorUsuario();   // Se devuelve una instancia unica controlador de usuario
         
         // Se crean los tres InternalFrame y se incluyen al Frame principal ocultos.
-        // De esta forma, no es necesario crear y destruir objetos lo que enlentece la ejecución.
+        // De esta forma, no es necesario crear y destruir objetos lo que enlentece la ejecucion.
         // Cada InternalFrame usa un layout diferente, simplemente para mostrar distintas opciones.
         creUsrInternalFrame = new CrearUsuario(ICU);
         creUsrInternalFrame.setLocation(30, 35);
@@ -67,15 +68,22 @@ public class Principal {
         lisUsrInternalFrame = new ListaUsuarios(ICU);
         lisUsrInternalFrame.setVisible(false);
         
+        // Tambien el de modificar Usuario
         modUsrInternalFrame = new ModificarUsuario(ICU);
         modUsrInternalFrame.setVisible(false);
         
+        // El de crear Actividad
+        creActiInternalFrame = new CrearActividad(ICU);
+        creActiInternalFrame.setLocation(30, 35);
+        creActiInternalFrame.setVisible(false);
+        
         frmGestionDeUsuarios.getContentPane().setLayout(null);
 
-        frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame); /*Agrego los 4 internos al principal */
+        frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame); /*Agrego los  internos al principal */
         frmGestionDeUsuarios.getContentPane().add(creUsrInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(modUsrInternalFrame); 
+        frmGestionDeUsuarios.getContentPane().add(creActiInternalFrame);
     }
 
     /**
@@ -86,7 +94,7 @@ public class Principal {
         // Se crea el Frame con las dimensiones indicadas.
         frmGestionDeUsuarios = new JFrame();
         frmGestionDeUsuarios.setTitle("Gestion de Usuarios 1.0");
-        frmGestionDeUsuarios.setBounds(100, 100, 450, 400);
+        frmGestionDeUsuarios.setBounds(100, 100, 496, 414);
         frmGestionDeUsuarios.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Se crea una barra de menu (JMenuBar) con dos menu (JMenu) desplegables.
@@ -129,7 +137,7 @@ public class Principal {
         });
         menuUsuarios.add(menuItemVerInfo);               // Agregar Info al usuarios
 
-        JMenuItem mntmListaUsuarios = new JMenuItem("ListarUsuarios");
+        JMenuItem mntmListaUsuarios = new JMenuItem("Listar Usuarios");
         mntmListaUsuarios.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Muestro el InternalFrame para ver la lista de todos los usuarios,
@@ -142,7 +150,7 @@ public class Principal {
         
         //Ahora el modificar usuario
         
-        JMenuItem mntModificarUsuarios = new JMenuItem("ModificarUsuarios");
+        JMenuItem mntModificarUsuarios = new JMenuItem("Modificar Usuario");
         mntModificarUsuarios.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Muestro el InternalFrame para ver la lista de todos los usuarios,
@@ -152,5 +160,36 @@ public class Principal {
             }
         });
         menuUsuarios.add(mntModificarUsuarios);
+        
+        // Ahora uno nuevo menu para Actividades
+        
+        JMenu menuActividades = new JMenu("Actividades");      // Al mismo nivel que Sistema
+        menuBar.add(menuActividades);
+        
+        // Abajo de este el registrar Actividades
+        
+        JMenuItem creRegistrarActividad = new JMenuItem("Registrar Actividad");
+        creRegistrarActividad.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Muestro el InternalFrame para registrar actividad
+            	creActiInternalFrame.setVisible(true);       // Pongo visible el internalFrame 
+            }
+        });
+        menuActividades.add(creRegistrarActividad);         // Agrego el registrar a Actividades
+        
+        // Consulta de Actividades
+        
+        JMenuItem creConsultarActividad = new JMenuItem("Consultar Actividad");
+        creConsultarActividad.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Muestro el InternalFrame para registrar un usuario
+            	//creActiInternalFrame.setVisible(true);       // Pongo visible el internalFrame visible
+            }
+        });
+        menuActividades.add(creConsultarActividad);         // Agrego el registrar a Actividades
+
+        
+     
+
     }
 }

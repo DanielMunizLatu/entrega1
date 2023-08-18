@@ -1,4 +1,4 @@
-package logica;
+package dataType;
 
 import java.util.Date;
 
