@@ -4,6 +4,11 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
+
 /**
  * Clase que conserva la coleccion global de los usuarios del sistema.
  * Los usuarios se identifican por su cedula de identidad.
@@ -47,5 +52,68 @@ public class ManejadorUsuario {
             return usuarios;
         }
     }
+    
+    public void addUsuarioPersistencia(Usuario usu) {
+               
+     // ENTITY PARA PERSISTENCIA
+    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Entrega1");
+    	EntityManager em = emf.createEntityManager();
 
+    	EntityTransaction tx = em.getTransaction();
+    	
+    	  // PERSISTO USUARIO
+        
+ 		tx.begin();
+ 		System.out.println("Voy a persisti usuario");
+ 		em.persist(usu);
+ 		System.out.println("Persisti usuario");
+ 		tx.commit();
+ 		
+ 		em.close();
+ 		emf.close();
+    }
+    public Usuario obtenerUsuarioPersistencia(String ci) {     // Recibo una cedula y devuelvo el objeto Usuario
+
+    	  // ENTITY PARA PERSISTENCIA
+    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Entrega1");
+    	EntityManager em = emf.createEntityManager();
+
+    	EntityTransaction tx = em.getTransaction();
+    	
+    	tx.begin();
+ 		System.out.println("Voy a buscar a la base");
+        Usuario u = em.find(logica.Usuario.class,ci);        // como anterior pero de la base          
+                                                              
+        System.out.println("Persisti usuario");
+ 		tx.commit();
+ 		
+ 		em.close();
+ 		emf.close();
+ 		
+ 		return u;
+    }
+
+    public void modificarUsuarioPersistencia(String ci,Usuario newDatos) {     // Recibo una cedula y devuelvo el objeto Usuario
+
+  	  // ENTITY PARA PERSISTENCIA
+  	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Entrega1");
+  	EntityManager em = emf.createEntityManager();
+
+  	EntityTransaction tx = em.getTransaction();
+  	
+  	tx.begin();
+		System.out.println("Voy a buscar a la base");
+		 Usuario u = em.find(logica.Usuario.class,ci);      
+         
+		 u=newDatos;
+		 
+        em.merge(u);
+        System.out.println("Persisti usuario");
+		tx.commit();
+		
+		em.close();
+		emf.close();
+		
+		//return u;
+  }
 }

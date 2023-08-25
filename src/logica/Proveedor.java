@@ -2,11 +2,20 @@ package logica;
 
 import dataType.DataProveedor;
 import dataType.DataUsuario;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
 
+@Entity
+@DiscriminatorValue("proveedor")
 public class Proveedor  extends Usuario{
 	
 	private String descripcion;
 	
+	
+	public Proveedor() {
+		super();
+	}
+
 	public Proveedor(String n, String ap, String ci,String desc) {
 		super(n, ap, ci);
 		this.descripcion=desc;

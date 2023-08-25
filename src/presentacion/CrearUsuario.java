@@ -274,7 +274,7 @@ public class CrearUsuario extends JInternalFrame {
     }
 
     // Este metodo es invocado al querer registrar un usuario, funcionalidad
-    // provista por la operación del sistem registrarUsuario().
+    // provista por la operacion del sistema registrarUsuario().
     // Previamente se hace una verificación de los campos, particularmente que no sean vacíos
     // y que la cédula sea un número. 
     // Tanto en caso de que haya un error (de verificación o de registro) o no, se despliega
@@ -322,11 +322,11 @@ public class CrearUsuario extends JInternalFrame {
         }
     }
 
-    // Permite validar la información introducida en los campos e indicar
-    // a través de un mensaje de error (JOptionPane) cuando algo sucede.
-    // Este tipo de chequeos se puede realizar de otras formas y con otras librerías de Java, 
+    // Permite validar la informacion introducida en los campos e indicar
+    // a traves de un mensaje de error (JOptionPane) cuando algo sucede.
+    // Este tipo de chequeos se puede realizar de otras formas y con otras libreriass de Java, 
     // por ejemplo impidiendo que se escriban caracteres no numéricos al momento de escribir en
-    // en el campo de la cédula, o mostrando un mensaje de error apenas el foco pasa a otro campo.
+    // en el campo de la cedula, o mostrando un mensaje de error apenas el foco pasa a otro campo.
     private boolean checkFormulario() {
         String nombreU = this.textFieldNombre.getText();
         String apellidoU = this.textFieldApellido.getText();

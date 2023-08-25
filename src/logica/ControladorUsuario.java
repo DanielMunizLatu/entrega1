@@ -6,19 +6,26 @@ import dataType.DataTurista;
 import dataType.DataUsuario;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
 
 /**
  * Controlador de usuarios.
- *
  */
+
 public class ControladorUsuario implements IControladorUsuario {
 
+	
+	
     public ControladorUsuario() {
     }
                                   // con throws digo el metodo puede larga una exception verificada
     
     public void registrarUsuario(DataUsuario usuario) throws UsuarioRepetidoException {
-        ManejadorUsuario mu = ManejadorUsuario.getinstance();
+        
+    	ManejadorUsuario mu = ManejadorUsuario.getinstance();
         Usuario u = mu.obtenerUsuario(usuario.getCedulaIdentidad());  // Lo voy a buscar a la coleccion
         
         if (u != null)  // Si lo encontre es porque ya existe
@@ -31,10 +38,13 @@ public class ControladorUsuario implements IControladorUsuario {
         if (usuario instanceof DataProveedor)
         	nuevoUsuario = new Proveedor (usuario.getNombre(),usuario.getApellido(),usuario.getCedulaIdentidad(),((DataProveedor) usuario).getDescripcion());
         		
-        // Agrego el usuario a la coleccion
+        // Agrego el usuario a la coleccion en memoria
         mu.addUsuario(nuevoUsuario);
-        if (nuevoUsuario instanceof Turista)
-        	System.out.println("Es turista nomas");
+        
+        // Agrego el usuaroi a la base de datos
+        mu.addUsuarioPersistencia(nuevoUsuario);     
+      
+		
     }
 
     // Devuelvo una DataUsuario para ser mostrado en la capa de presentacion
@@ -42,8 +52,9 @@ public class ControladorUsuario implements IControladorUsuario {
     public DataUsuario verInfoUsuario(String ci) throws UsuarioNoExisteException {
       
     	ManejadorUsuario mu = ManejadorUsuario.getinstance();  // mu tiene la coleccion
-        Usuario u = mu.obtenerUsuario(ci);                     // u obtiene el usuario pasado por parametro 
-       
+        //Usuario u = mu.obtenerUsuario(ci);                  // u obtiene el usuario pasado por parametro de memoria
+        Usuario u = mu.obtenerUsuarioPersistencia(ci);       // de la base
+        
         if (u != null) { // Si lo encontre es porque ya existe, solo traigo sus datos
         	
         	DataUsuario du =u.getDataUsuario();  // Cargo en un dataUsuario, que esta sobrescrito
@@ -82,8 +93,9 @@ public class ControladorUsuario implements IControladorUsuario {
     public void modificarUsuario(DataUsuario usuario)  {
         
     	ManejadorUsuario mu = ManejadorUsuario.getinstance();
-      //  Usuario u = mu.obtenerUsuario(usuario.getCedulaIdentidad());  // Lo voy a buscar a la coleccion
-    
+        Usuario u = mu.obtenerUsuario(usuario.getCedulaIdentidad());  // Lo voy a buscar a la coleccion
+    	 
+    	    	
         Usuario nuevoUsuario=null;
         if (usuario instanceof DataTurista) {
         	nuevoUsuario = new Turista (usuario.getNombre(),usuario.getApellido(),usuario.getCedulaIdentidad(),((DataTurista) usuario).getNacionalidad());
@@ -99,11 +111,15 @@ public class ControladorUsuario implements IControladorUsuario {
 		   //System.out.println(((Turista) nuevoUsuario).getNacionalidad());
 			System.out.println("Soy Turista");
 		if (usuario instanceof DataProveedor)
-			   //System.out.println(((Turista) nuevoUsuario).getNacionalidad());
-				System.out.println("Soy proveedor");
+			//System.out.println(((Turista) nuevoUsuario).getNacionalidad());
+			System.out.println("Soy proveedor");
 		
         // Agrego el usuario a la coleccion
         mu.addUsuario(nuevoUsuario);
+        
+        // Modifico en la base
+        mu.modificarUsuarioPersistencia(usuario.getCedulaIdentidad(), nuevoUsuario);
+            
     }
    
 }

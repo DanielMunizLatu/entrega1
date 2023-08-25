@@ -2,11 +2,21 @@ package logica;
 
 import dataType.DataTurista;
 import dataType.DataUsuario;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
 
+@Entity
+@DiscriminatorValue("turista")
 public class Turista extends Usuario{
 	
 	private String nacionalidad;
 	
+	
+	
+	public Turista() {
+		super();
+	}
+
 	public Turista(String n, String ap, String ci,String nacio) {
 		super(n, ap, ci);
 		this.nacionalidad=nacio;

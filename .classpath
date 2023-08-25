@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/instalacion/Downloads/hsqldb-2.7.2/hsqldb-2.7.2/hsqldb/lib/hsqldb.jar"/>
+	<classpathentry kind="lib" path="C:/Users/instalacion/Downloads/hsqldb-2.7.2/hsqldb-2.7.2/hsqldb/lib/hsqldb-osgi-jdk8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/instalacion/Downloads/hsqldb-2.7.2/hsqldb-2.7.2/hsqldb/lib/javax.servlet-api-3.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/instalacion/Downloads/hsqldb-2.7.2/hsqldb-2.7.2/hsqldb/lib/sqltool.jar"/>
+	<classpathentry kind="lib" path="C:/Users/instalacion/Downloads/hsqldb-2.7.2/hsqldb-2.7.2/hsqldb/lib/sqltool-jdk8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/instalacion/Downloads/angus-activation-2.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/instalacion/Downloads/eclipselink-4.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/instalacion/Downloads/jakarta.activation-api-2.1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/instalacion/Downloads/jakarta.persistence-api-3.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/instalacion/Downloads/jakarta.xml.bind-api-4.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/instalacion/Downloads/jaxb-core-4.0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/instalacion/Downloads/jaxb-xjc-4.0.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
