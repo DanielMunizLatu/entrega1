@@ -145,7 +145,7 @@ public class Principal {
             public void actionPerformed(ActionEvent e) {
                 // Muestro el InternalFrame para ver la lista de todos los usuarios,
                 // cargando previamente la lista
-                lisUsrInternalFrame.cargarUsuarios();   // Llamo al cargar Usuario en la clase de ese internal frame
+                lisUsrInternalFrame.cargarUsuariosPersistencia();   // Llamo al cargar Usuario en la clase de ese internal frame
                 lisUsrInternalFrame.setVisible(true);  // Pongo visible el internalFrame visible
             }
         });
@@ -175,7 +175,7 @@ public class Principal {
         creRegistrarActividad.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Muestro el InternalFrame para registrar actividad
-            	creActiInternalFrame.cargarProveedores();     // PARA CARGAR COMBO PROVEEDORES
+            	//creActiInternalFrame.cargarProveedores();     // PARA CARGAR COMBO PROVEEDORES
             	creActiInternalFrame.setVisible(true);       // Pongo visible el internalFrame 
             }
         });
@@ -191,8 +191,7 @@ public class Principal {
             }
         });
         menuActividades.add(creConsultarActividad);         // Agrego el registrar a Actividades
-
-        
+   
      
 
     }

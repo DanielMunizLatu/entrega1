@@ -2,27 +2,41 @@ package dataType;
 
 import java.util.Date;
 
+import logica.Turista;
+
 public class DataInscripcion {
 	
+	private long id;
 	private Date fechaInscripcion;
 	private Integer CantidadTuristas;
 	private Integer Costo;
-	private String Turista;
+	private Turista Turi;
 	
-	public DataInscripcion(Date fechaInscripcion, Integer cantidadTuristas, Integer costo, String turista) {
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+
+	
+	public DataInscripcion(long id,Date fechaInscripcion, Integer cantidadTuristas, Integer costo, Turista turista) {
 		super();
+		this.id=id;
 		this.fechaInscripcion = fechaInscripcion;
-		CantidadTuristas = cantidadTuristas;
-		Costo = costo;
-		Turista = turista;
+		this.CantidadTuristas = cantidadTuristas;
+		this.Costo = costo;
+		this.Turi = turista;
 	}
 
-	public String getTurista() {
-		return Turista;
+	public Turista getTurista() {
+		return Turi;
 	}
 
-	public void setTurista(String turista) {
-		Turista = turista;
+	public void setTurista(Turista turista) {
+		Turi = turista;
 	}
 
 	public Date getFechaInscripcion() {

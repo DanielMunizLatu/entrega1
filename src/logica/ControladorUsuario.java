@@ -1,6 +1,8 @@
 package logica;
 
 
+import java.util.List;
+
 import dataType.DataProveedor;
 import dataType.DataTurista;
 import dataType.DataUsuario;
@@ -8,8 +10,8 @@ import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 
 /**
  * Controlador de usuarios.
@@ -90,6 +92,37 @@ public class ControladorUsuario implements IControladorUsuario {
             throw new UsuarioNoExisteException("No existen usuarios registrados");
 
     }
+
+    // No preciso cargar lista ni array de objetos porque voy a la base 
+    
+    public List<String> getUsuariosPersistencia() {      // Devuelve la tabla completa de los usuarios en array
+        
+        
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Entrega1");
+		EntityManager em = emf.createEntityManager();  
+        
+         //Query con JPQL. Obtenemos la informacion de todos los usuario.
+        Query query = em.createQuery("SELECT CONCAT(u.cedulaIdentidad,' ',u.nombre,' ',u.apellido) FROM Usuario u");
+      
+        List<String> result = query.getResultList();
+     	      
+      	return result;	 
+    }
+    
+     public List<String> getProveedoresPersistencia() {      // Devuelve la tabla completa de los usuarios en array
+        
+        
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Entrega1");
+		EntityManager em = emf.createEntityManager();  
+        
+         //Query con JPQL. Obtenemos la informacion de todos los usuario.
+        Query query = em.createQuery("SELECT u.nombre  FROM Usuario u");
+      
+        List<String> result = query.getResultList();
+     	      
+      	return result;	 
+    }
+    
     public void modificarUsuario(DataUsuario usuario)  {
         
     	ManejadorUsuario mu = ManejadorUsuario.getinstance();

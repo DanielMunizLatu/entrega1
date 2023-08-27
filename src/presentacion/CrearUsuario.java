@@ -108,7 +108,7 @@ public class CrearUsuario extends JInternalFrame {
        
         tipoUsuario.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-            	
+            	//System.out.println("Di click de usuario");
             	String valorCombo=(String) tipoUsuario.getSelectedItem();
             	if (valorCombo=="Turista") {
 					//System.out.print("Entro por turista");
@@ -188,7 +188,7 @@ public class CrearUsuario extends JInternalFrame {
         // Por defecto es posible ingresar cualquier string.
         // Al campo se le incluye un Tooltip que, al pasar el mouse por encima, despliega un mensaje.
         textFieldCI = new JTextField();
-        textFieldCI.setToolTipText("Ingrese un número sin puntos ni guiones");
+        textFieldCI.setToolTipText("Ingrese un numero sin puntos ni guiones");
         textFieldCI.setColumns(10);
         GridBagConstraints gbc_textFieldCI = new GridBagConstraints();
         gbc_textFieldCI.gridwidth = 2;

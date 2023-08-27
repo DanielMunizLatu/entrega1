@@ -8,19 +8,36 @@ import javax.swing.JTextField;
 
 import dataType.DataActividad;
 import dataType.DataProveedor;
+import dataType.DataTurista;
 import dataType.DataUsuario;
 import excepciones.ActividadNoExisteException;
+import excepciones.ActividadRepetidaException;
 import excepciones.UsuarioNoExisteException;
+import excepciones.UsuarioRepetidoException;
 import logica.IControladorActividad;
 import logica.IControladorUsuario;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import java.awt.event.ItemEvent;
 import java.awt.Font;
+import java.text.ParseException;
+import java.util.Date;
+import java.time.LocalDate;
+//import java.time.DateTimeFormatter;  // Esto no anda, no la reconoce
+import java.time.format.DateTimeFormatter;
+import javax.swing.JButton;
+
 
 @SuppressWarnings("serial")
 public class CrearActividad extends JInternalFrame {
@@ -30,10 +47,10 @@ public class CrearActividad extends JInternalFrame {
 	private JTextField textFieldNombre;
 	private JTextField textFieldCosto;
 	private JTextField textFieldFechaHasta;
-	private JComboBox<DataUsuario> proveedor;
+	private JComboBox<String> proveedor;
+	private JButton btnAceptar;
 	private IControladorActividad controlAct;
 	private IControladorUsuario controlUsr;
-	
 	
 	public CrearActividad(IControladorActividad ica,IControladorUsuario icu) {
 		
@@ -109,15 +126,18 @@ public class CrearActividad extends JInternalFrame {
 		getContentPane().add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
 		 textFieldFechaHasta = new JTextField();
-	        textFieldFechaHasta.setToolTipText("Ingrese una Fecha");
-	        textFieldFechaHasta.setColumns(10);
-	        GridBagConstraints gbc_textFieldFechaHasta = new GridBagConstraints();
-	        gbc_textFieldFechaHasta.gridwidth = 2;
-	        gbc_textFieldFechaHasta.fill = GridBagConstraints.BOTH;
-	        gbc_textFieldFechaHasta.insets = new Insets(0, 0, 5, 5);
-	        gbc_textFieldFechaHasta.gridx = 1;
-	        gbc_textFieldFechaHasta.gridy = 3;
-	        getContentPane().add(textFieldFechaHasta, gbc_textFieldFechaHasta);
+		 
+	     textFieldFechaHasta.setToolTipText("Ingrese una Fecha dd/mm/aaaa");
+	     textFieldFechaHasta.setColumns(10);
+	     GridBagConstraints gbc_textFieldFechaHasta = new GridBagConstraints();
+	     gbc_textFieldFechaHasta.gridwidth = 2;
+	     gbc_textFieldFechaHasta.fill = GridBagConstraints.BOTH;
+	     gbc_textFieldFechaHasta.insets = new Insets(0, 0, 5, 5);
+	     gbc_textFieldFechaHasta.gridx = 1;
+	     gbc_textFieldFechaHasta.gridy = 3;
+	     getContentPane().add(textFieldFechaHasta, gbc_textFieldFechaHasta);
+	    
+	   
 		
 		JLabel lblNewLabel_4 = new JLabel("Proveedor");
 		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
@@ -127,7 +147,7 @@ public class CrearActividad extends JInternalFrame {
 		getContentPane().add(lblNewLabel_4, gbc_lblNewLabel_4);
 		
 		// Combo Box para el proveedor
-        proveedor = new JComboBox<DataUsuario>();
+        proveedor = new JComboBox<String>();
         GridBagConstraints gbc_proveedor = new GridBagConstraints();
         gbc_proveedor.gridwidth = 2;
         gbc_proveedor.insets = new Insets(0, 0, 5, 5);
@@ -138,40 +158,122 @@ public class CrearActividad extends JInternalFrame {
         gbc_proveedor.gridwidth = 2;
         gbc_proveedor.gridx = 1;
         getContentPane().add(proveedor, gbc_proveedor);
-	
+        
+       	
         System.out.println("Di click en el combo 1");
         //Ahora cargamos el comboBox proveedores
-       /* proveedor.addActionListener(new ActionListener() {
+       //proveedor.addItemListener(new ItemListener() {
         	
-            public void actionPerformed(ActionEvent e) {
-                // Acción a realizar cuando se hace clic en el JComboBox
-            	System.out.println("Di click en el combo");
-                cargarProveedores();
-            }
-
-		
-        });*/
-	
-	}    // Aca se cierra el constructor
+        
+    proveedor.addMouseListener(new MouseAdapter() {
+    	  @Override
+    	  public void mouseClicked(MouseEvent e) {
+    		
+    		   //System.out.println("Di click en el combo 1xxx");
+    		   cargarProveedoresPersistencia();
+    	  }
+     
+    	  
+	  });
+      
+    // Boton agregar
+  
+    btnAceptar = new JButton("Agregar");
+    GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+    gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
+    gbc_btnNewButton.gridx = 1;
+    gbc_btnNewButton.gridy = 5;
+    getContentPane().add(btnAceptar, gbc_btnNewButton);
+    
+    btnAceptar.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent arg0) {
+            cmdRegistroUsuarioActionPerformed(arg0);
+        }
+    });
+	 }// Aca se cierra el constructor
 		    
-        // Metodo que carga el combo con los proveedores
-	    //System.out.println("Di click en el combo 1");
-	  
-        public void cargarProveedores() {
+    
+    // Metodo que carga el combo con los proveedores
+    
+	   	          
+       public void cargarProveedoresPersistencia() {
         	
-        	System.out.println("Entre a levantar los usuarios");
-            DefaultComboBoxModel<DataUsuario> model; // Este modelo se crea para carga el combo 
-           
-            try {                                    // En model esta lo que vamos a carga al combo
-            	model = new DefaultComboBoxModel<DataUsuario>(controlUsr.getUsuarios()); //Aca se carga
-                //proveedor = new JComboBox<DataUsuario>(model);
-            	proveedor.setModel(model);        //VER EN LA API DefaultComboBoxModel
-            } catch (UsuarioNoExisteException e) {
-                // No se imprime mensaje de error sino que simplemente no se muestra ningun elemento
-            }
+    	   DefaultComboBoxModel<String> model;              // Este modelo se crea para carga el combo 
+           model = new DefaultComboBoxModel<String>();                   //Aca se carga
+   		   for (String opcion : controlUsr.getProveedoresPersistencia()) {
+   		        model.addElement(opcion);
+   		    }
+   		   proveedor.setModel(model);
 
         }
+       protected void cmdRegistroUsuarioActionPerformed(ActionEvent arg0) {
+           // TODO Auto-generated method stub
+
+           // Obtengo datos de los controles Swing
+           String nombreA = this.textFieldNombre.getText();
+           String costoA = this.textFieldCosto.getText();
+           int intCosto=Integer.parseInt(costoA);
+           String fechaHastaA = this.textFieldFechaHasta.getText();
+           
+     	  // Definir el formato de fecha deseado
+           DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+           // Formatear la fecha y establecerla en el JTextField
+           LocalDate date = LocalDate.parse(fechaHastaA, dateFormatter);
+           textFieldFechaHasta.setText(dateFormatter.format(date));
+           
+           
+           // Combo
+           String valorCombo=(String) proveedor.getSelectedItem();
+      
+           if (checkFormulario()) {
+               try {
+               
+            	DataActividad da=null;   
+            	da = new DataActividad(nombreA,intCosto,date,valorCombo);   
+   				controlAct.registrarActividad(da); // Esto registra al objeto pasandole el DataType
+   				
+
+                // Muestro exito de la operacion
+                JOptionPane.showMessageDialog(this, "La actividad se ha creado con Exito", "Registrar Usuario",
+                           JOptionPane.INFORMATION_MESSAGE);
+
+               } catch (ActividadRepetidaException e) {
+                   // Muestro error de registro
+                   JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Actividad", JOptionPane.ERROR_MESSAGE);
+               }
+
+               // Limpio el internal frame antes de cerrar la ventana
+               limpiarFormulario();
+               setVisible(false);
+           }
+       }
+       private boolean checkFormulario() {
+    	   String nombreA = this.textFieldNombre.getText();
+           String costoA = this.textFieldCosto.getText();
+           String fechaHastaA = this.textFieldFechaHasta.getText();
+
+           if (nombreA.isEmpty() || costoA.isEmpty() || fechaHastaA.isEmpty()) {
+               JOptionPane.showMessageDialog(this, "No puede haber campos vacios", "Registrar Usuario",
+                       JOptionPane.ERROR_MESSAGE);
+               return false;
+           }
+
+           try {
+               Integer.parseInt(costoA);
+           } catch (NumberFormatException e) {
+               JOptionPane.showMessageDialog(this, "El costo debe ser un numero", "Registrar Usuario",
+                       JOptionPane.ERROR_MESSAGE);
+               return false;
+           }
+
+           return true;
+       }
+       private void limpiarFormulario() {
+           textFieldNombre.setText("");
+           textFieldCosto.setText("");
+           textFieldFechaHasta.setText("");
         
-	
+       }
      }
 

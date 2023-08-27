@@ -1,5 +1,6 @@
 package dataType;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import logica.Proveedor;
@@ -8,10 +9,10 @@ public class DataActividad {
 	
 	private String nombre;
 	private Integer costo;
-	private Date fechaHasta;
+	private LocalDate fechaHasta;
 	private String prove;
 	
-	public DataActividad(String nombre, Integer costo, Date fechaHasta, String prove) {
+	public DataActividad(String nombre, Integer costo, LocalDate fechaHasta, String prove) {
 		super();
 		this.nombre = nombre;
 		this.costo = costo;
@@ -35,11 +36,11 @@ public class DataActividad {
 		this.costo = costo;
 	}
 
-	public Date getFechaHasta() {
+	public LocalDate getFechaHasta() {
 		return fechaHasta;
 	}
 
-	public void setFechaHasta(Date fechaHasta) {
+	public void setFechaHasta(LocalDate fechaHasta) {
 		this.fechaHasta = fechaHasta;
 	}
 

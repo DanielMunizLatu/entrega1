@@ -29,8 +29,9 @@ public class ListaUsuarios extends JInternalFrame {
     
     // Los componentes graficos se agregan como atributos de la clase
     // para facilitar su acceso desde diferentes metodos de la misma.
-    private JComboBox<DataUsuario> comboBoxUsuarios;
-    private JLabel lblUsuarios;
+    //private JComboBox<DataUsuario> comboBoxUsuarios;
+    private JComboBox<String> comboBoxUsuarios;  // CAMBIE PARA TRAER DE LA PERSISTENCIA A UN STRING
+    private JLabel lblUsuarios; 
     private JButton btnCerrar;
 
     /**
@@ -62,7 +63,8 @@ public class ListaUsuarios extends JInternalFrame {
         // Un combo (JComboBox) muestra la lista de usuarios registrados en el sistema.
         // Es posible utilizar otros componentes graficos, esta es salto una opcion.
         // Se ubica al centro del layout.
-        comboBoxUsuarios = new JComboBox<DataUsuario>();
+        //comboBoxUsuarios = new JComboBox<DataUsuario>();
+        comboBoxUsuarios = new JComboBox<String>();
         getContentPane().add(comboBoxUsuarios, BorderLayout.CENTER);
 
         // Un boton (JButton) con un evento asociado que permite limpiar la lista 
@@ -76,13 +78,14 @@ public class ListaUsuarios extends JInternalFrame {
             }
         });
         getContentPane().add(btnCerrar, BorderLayout.SOUTH);
-    }
+        
+    }  //Aca termina el constructor
 
     // Metodo que permite cargar un nuevo modelo para el combo con la informacion
     // actualizada de usuarios, provista por la operacion del sistema getUsuarios(). 
     // Se invoca el metodo antes de hacer visible el JInternalFrame
     
-    public void cargarUsuarios() {
+   /* public void cargarUsuarios() {
     	
         DefaultComboBoxModel<DataUsuario> model; // Este modelo se crea para carga el combo 
         try {                                    // En model esta lo que vamos a carga al combo
@@ -91,7 +94,18 @@ public class ListaUsuarios extends JInternalFrame {
         } catch (UsuarioNoExisteException e) {
             // No se imprime mensaje de error sino que simplemente no se muestra ningun elemento
         }
+      
+    }*/
 
+ public void cargarUsuariosPersistencia()  {
+    	
+        DefaultComboBoxModel<String> model;              // Este modelo se crea para carga el combo 
+        model = new DefaultComboBoxModel<String>();                   //Aca se carga
+		for (String opcion : controlUsr.getUsuariosPersistencia()) {
+		    model.addElement(opcion);
+		}
+		comboBoxUsuarios.setModel(model);
+
+       
     }
-
 }

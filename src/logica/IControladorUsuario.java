@@ -1,5 +1,7 @@
 package logica;
 
+import java.util.List;
+
 import dataType.DataUsuario;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
@@ -17,7 +19,7 @@ public interface IControladorUsuario {
 
     /**
      * Retorna la informacon de un usuario con la cedula indicada.
-     * @param ci Cédula del usuario.
+     * @param ci Cedula del usuario.
      * @return Información del usuario.
      * @throws UsuarioNoExisteException Si la cédula del usuario no está registrada en el sistema.
      */
@@ -31,4 +33,9 @@ public interface IControladorUsuario {
     
     // Modificar usuario
     public void modificarUsuario(DataUsuario usuario);
+    
+    //Listar usuarios de la base
+    public List<String> getUsuariosPersistencia();
+    
+    public List<String> getProveedoresPersistencia();
 }

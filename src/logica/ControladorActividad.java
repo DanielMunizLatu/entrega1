@@ -1,6 +1,7 @@
 package logica;
 
 import dataType.DataActividad;
+import dataType.DataTurista;
 import excepciones.ActividadNoExisteException;
 import excepciones.ActividadRepetidaException;
 
@@ -10,16 +11,22 @@ public class ControladorActividad implements IControladorActividad{
 	 public ControladorActividad() {
 	    }
 	 
-	 public void registrarActividad(DataActividad actividad, String prove) throws ActividadRepetidaException {
-	        ManejadorActividad ma = ManejadorActividad.getinstance();
+	 public void registrarActividad(DataActividad actividad) throws ActividadRepetidaException {
+	        
+		    ManejadorActividad ma = ManejadorActividad.getinstance();
 	        Actividad a = ma.obtenerActividad(actividad.getNombre());  // Lo voy a buscar a la coleccion
 	        
 	        if (a != null)  // Si lo encontre es porque ya existe
 	            throw new ActividadRepetidaException("La actividad " + actividad.getNombre() + " ya esta registrada");
 
-	     
+	        Actividad nuevaActividad=null;
+	        nuevaActividad = new Actividad (actividad.getNombre(),actividad.getCosto(),actividad.getFechaHasta(),actividad.getProve());
+	        
 	        // Agrego la actividad a la coleccion
-	        ma.addActividad(a);
+	        ma.addActividad(nuevaActividad);
+	        
+	        // Ahora persisto
+	        ma.addActividadPersistencia(nuevaActividad);
 	       
 	    }
 	// Devuelvo una DataActividad para ser mostrado en la capa de presentacion

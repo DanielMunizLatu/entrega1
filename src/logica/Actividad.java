@@ -1,20 +1,26 @@
 package logica;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import dataType.DataActividad;
 import dataType.DataSalida;
-import dataType.DataTurista;
-import dataType.DataUsuario;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
+@Entity
 public class Actividad {
 	
+	@Id
 	private String nombre;
 	private Integer costo;
-	private Date fechaHasta;
+	private LocalDate fechaHasta;
 	private String prove;
+	
+	@OneToMany(cascade = CascadeType.PERSIST)
 	private List<Salida> salidas = new ArrayList<>();
 	
 	public String getProve() {
@@ -25,7 +31,11 @@ public class Actividad {
 		this.prove = prove;
 	}
 
-	public Actividad(String nombre, Integer costo, Date fechaHasta,String prov ) {
+	public Actividad() {
+		super();
+	}
+	
+	public Actividad(String nombre, Integer costo, LocalDate fechaHasta,String prov ) {
 		super();
 		this.nombre = nombre;
 		this.costo = costo;
@@ -49,11 +59,11 @@ public class Actividad {
 		this.costo = costo;
 	}
 
-	public Date getFechaHasta() {
+	public LocalDate getFechaHasta() {
 		return fechaHasta;
 	}
 
-	public void setFechaHasta(Date fechaHasta) {
+	public void setFechaHasta(LocalDate fechaHasta) {
 		this.fechaHasta = fechaHasta;
 	}
 

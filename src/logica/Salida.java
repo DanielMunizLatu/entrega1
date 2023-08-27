@@ -6,16 +6,28 @@ import java.util.List;
 
 import dataType.DataInscripcion;
 import dataType.DataSalida;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
+@Entity
 public class Salida {
 
+	@Id
 	private String nombre;
 	private Date fecha;
 	private Integer hora;
 	private Integer turistaMax;
 	private String lugar;
 	private Date fechaAlta;
+	
+	@OneToMany(cascade = CascadeType.PERSIST)
 	private List<Inscripcion> inscripciones = new ArrayList<>();
+	
+	public Salida() {
+		super();
+	}
 	
 	public Salida(String nombre, Date fecha, Integer hora, Integer turistaMax, String lugar, Date fechaAlta) {
 		super();
@@ -81,10 +93,10 @@ public class Salida {
 		return new DataSalida(this.getNombre(),this.getFecha(),this.getHora(),this.getTuristaMax(), this.getLugar(),this.getFechaAlta());
 	}
 	
-	// AHORA LOS METODOS PARA MANEGAR LA LISTA DE INSCRIPCIONES
+	// AHORA LOS METODOS PARA MANEJAR LA LISTA DE INSCRIPCIONES
 	
 	public void agregarInscripcion(DataInscripcion insc) {
-		Inscripcion i = new Inscripcion(insc.getFechaInscripcion(),insc.getCantidadTuristas(),insc.getCosto(),insc.getTurista());
+		Inscripcion i = new Inscripcion(insc.getId(),insc.getFechaInscripcion(),insc.getCantidadTuristas(),insc.getCosto(),insc.getTurista());
 		inscripciones.add(i);
 	}
 	

@@ -4,6 +4,11 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
+
 public class ManejadorActividad {
 	
 	 private Map<String, Actividad> actividadNombre;               // Coleccion
@@ -25,6 +30,27 @@ public class ManejadorActividad {
 	        actividadNombre.put(nom, act);                // agrego la actividad a la coleccion
 	    }
 	 
+	 
+	  public void addActividadPersistencia(Actividad act) {
+          
+		     // ENTITY PARA PERSISTENCIA
+		    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Entrega1");
+		    	EntityManager em = emf.createEntityManager();
+
+		    	EntityTransaction tx = em.getTransaction();
+		    	
+		    	  // PERSISTO USUARIO
+		        
+		 		tx.begin();
+		 		
+		 		em.persist(act);
+		 
+		 		tx.commit();
+		 		
+		 		em.close();
+		 		emf.close();
+		    }
+	  
 	 public Actividad obtenerActividad(String nom) {           // Recibo un nombre y devuelvo el objeto Actividad
 	        return ((Actividad) actividadNombre.get(nom));   // Este get es de la API
 	    }
