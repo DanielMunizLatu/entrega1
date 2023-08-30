@@ -1,9 +1,15 @@
 package logica;
 
+import java.util.List;
+
 import dataType.DataActividad;
 import dataType.DataTurista;
 import excepciones.ActividadNoExisteException;
 import excepciones.ActividadRepetidaException;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 
 
 public class ControladorActividad implements IControladorActividad{
@@ -34,12 +40,13 @@ public class ControladorActividad implements IControladorActividad{
 	    public DataActividad verInfoActividad(String nombre) throws ActividadNoExisteException {
 	      
 	    	ManejadorActividad ma = ManejadorActividad.getinstance();  // ma tiene la coleccion
-	        Actividad a = ma.obtenerActividad(nombre);                 // a obtiene el usuario pasado por parametro 
-	       
+	        //Actividad a = ma.obtenerActividad(nombre);                 // a obtiene el usuario pasado por parametro 
+	        Actividad a = ma.obtenerActividadPersistencia(nombre);   // de la base traigo
+	    	
 	        if (a != null) { // Si lo encontre es porque ya existe, solo traigo sus datos
 	        	
 	        	DataActividad da =a.getDataActividad();  // Cargo en un dataActividad, que esta sobrescrito
-	        	return da;                           // segun el tipo de usuario que sea
+	        	return da;                               // segun el tipo de usuario que sea
 	        		
 	          // return new DataUsuario(u.getNombre(), u.getApellido(), u.getCedulaIdentidad(),((Turista) u).getNacionalidad());
 	        }    
@@ -85,5 +92,19 @@ public class ControladorActividad implements IControladorActividad{
 			
 	        // Agrego el usuario a la coleccion
 	        ma.addActividad(nuevaActividad);
+	    }
+	    
+	    public List<String> getActividadesPersistencia() { // Devuelve la tabla completa de las actividades en array
+	        
+	        
+	        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Entrega1");
+			EntityManager em = emf.createEntityManager();  
+	        
+	         //Query con JPQL. Obtenemos la informacion de todos los usuario.
+	        Query query = em.createQuery("SELECT u.nombre  FROM Actividad u");
+	      
+	        List<String> result = query.getResultList();
+	     	      
+	      	return result;	 
 	    }
 }

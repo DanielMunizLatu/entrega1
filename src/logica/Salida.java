@@ -1,4 +1,5 @@
 package logica;
+import java.time.LocalDate;
 //
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,11 +17,11 @@ public class Salida {
 
 	@Id
 	private String nombre;
-	private Date fecha;
+	private LocalDate fecha;
 	private Integer hora;
 	private Integer turistaMax;
 	private String lugar;
-	private Date fechaAlta;
+	private LocalDate fechaAlta;
 	
 	@OneToMany(cascade = CascadeType.PERSIST)
 	private List<Inscripcion> inscripciones = new ArrayList<>();
@@ -29,7 +30,7 @@ public class Salida {
 		super();
 	}
 	
-	public Salida(String nombre, Date fecha, Integer hora, Integer turistaMax, String lugar, Date fechaAlta) {
+	public Salida(String nombre, LocalDate fecha, Integer hora, Integer turistaMax, String lugar, LocalDate fechaAlta) {
 		super();
 		this.nombre = nombre;
 		this.fecha = fecha;
@@ -47,11 +48,11 @@ public class Salida {
 		this.nombre = nombre;
 	}
 
-	public Date getFecha() {
+	public LocalDate getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
 	}
 
@@ -79,11 +80,11 @@ public class Salida {
 		this.lugar = lugar;
 	}
 
-	public Date getFechaAlta() {
+	public LocalDate getFechaAlta() {
 		return fechaAlta;
 	}
 
-	public void setFechaAlta(Date fechaAlta) {
+	public void setFechaAlta(LocalDate fechaAlta) {
 		this.fechaAlta = fechaAlta;
 	}
 	

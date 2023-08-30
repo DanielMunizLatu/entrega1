@@ -55,6 +55,24 @@ public class ManejadorActividad {
 	        return ((Actividad) actividadNombre.get(nom));   // Este get es de la API
 	    }
 	 
+	 public Actividad obtenerActividadPersistencia(String nom) { 
+		 
+		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("Entrega1");
+       	 EntityManager em = emf.createEntityManager();
+	     EntityTransaction tx = em.getTransaction();
+	    	
+	     tx.begin();                   
+	    
+	     Actividad a = em.find(logica.Actividad.class,nom);              
+         
+	     tx.commit();
+	 		
+	 	 em.close();
+	 	 emf.close();
+	        
+	 		return a;             
+	    }
+	 
 	 public Actividad[] getActividades() {      // Devuelve la coleccion completa de las actividades en array
 	        if (actividadNombre.isEmpty())      // isEmpty tambien es de la API
 	            return null;

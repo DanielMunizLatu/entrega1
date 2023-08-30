@@ -96,7 +96,7 @@ public class ManejadorUsuario {
  		return u;
     }
 
-    public void modificarUsuarioPersistencia(String ci,Usuario newDatos) {     // Recibo una cedula y devuelvo el objeto Usuario
+    public void modificarUsuarioPersistencia(String ci,Usuario newDatos) {     // Recibo una cedula y modifico la db
 
   	  // ENTITY PARA PERSISTENCIA
   	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Entrega1");
@@ -117,7 +117,7 @@ public class ManejadorUsuario {
 		em.close();
 		emf.close();
 		
-		//return u;
+	
   }
  
 }

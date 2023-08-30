@@ -28,6 +28,7 @@ public class Principal {
     private ModificarUsuario modUsrInternalFrame; // Frame para modificar el usuario
 	private IControladorActividad ICA;
     private CrearActividad creActiInternalFrame;  // Frame para alta de actividad
+    private CrearSalida creSaliInternalFrame;
 
     /**
      * Launch the application.
@@ -80,13 +81,21 @@ public class Principal {
         creActiInternalFrame.setLocation(30, 35);
         creActiInternalFrame.setVisible(false);
         
+        // El de crear Salida
+        creSaliInternalFrame = new CrearSalida(ICA);
+        creSaliInternalFrame.setLocation(30, 35);
+        creSaliInternalFrame.setVisible(false);
+        
         frmGestionDeUsuarios.getContentPane().setLayout(null);
 
-        frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame); /*Agrego los  internos al principal */
+        /*Agrego los  internos al principal */
+        frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame); 
         frmGestionDeUsuarios.getContentPane().add(creUsrInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(modUsrInternalFrame); 
         frmGestionDeUsuarios.getContentPane().add(creActiInternalFrame);
+        frmGestionDeUsuarios.getContentPane().add(creSaliInternalFrame);
+        
     }
 
     /**
@@ -171,26 +180,38 @@ public class Principal {
         
         // Abajo de este el registrar Actividades
         
-        JMenuItem creRegistrarActividad = new JMenuItem("Registrar Actividad");
+        JMenuItem creRegistrarActividad = new JMenuItem("Registrar y Consultar");
         creRegistrarActividad.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Muestro el InternalFrame para registrar actividad
-            	//creActiInternalFrame.cargarProveedores();     // PARA CARGAR COMBO PROVEEDORES
-            	creActiInternalFrame.setVisible(true);       // Pongo visible el internalFrame 
+            	creActiInternalFrame.cargarProveedoresPersistencia();     // PARA CARGAR COMBO PROVEEDORES
+            	creActiInternalFrame.setVisible(true);                   // Pongo visible el internalFrame 
+            
+            	
             }
         });
-        menuActividades.add(creRegistrarActividad);         // Agrego el registrar a Actividades
+        menuActividades.add(creRegistrarActividad);                     // Agrego el registrar a Actividades
         
-        // Consulta de Actividades
+            
+       // Ahora uno nuevo menu para Salidas
         
-        JMenuItem creConsultarActividad = new JMenuItem("Consultar Actividad");
-        creConsultarActividad.addActionListener(new ActionListener() {
+        JMenu menuSalidas = new JMenu("Salidas");      // Al mismo nivel que Sistema
+        menuBar.add(menuSalidas);   
+        
+      // Abajo de este el registrar Salida
+        
+        JMenuItem creRegistrarSalida = new JMenuItem("Registrar y Consultar");
+        creRegistrarSalida.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Muestro el InternalFrame para registrar un usuario
-            	//creActiInternalFrame.setVisible(true);       // Pongo visible el internalFrame visible
+                
+            	   // Muestro el InternalFrame para registrar salida
+            	creSaliInternalFrame.cargarActividadesPersistencia();     // PARA CARGAR COMBO ACTIVIDADES
+            	creSaliInternalFrame.setVisible(true);
+            	System.out.println("Hola salida");
             }
         });
-        menuActividades.add(creConsultarActividad);         // Agrego el registrar a Actividades
+        menuSalidas.add(creRegistrarSalida);         // Agrego el registrar a Actividades
+       
    
      
 

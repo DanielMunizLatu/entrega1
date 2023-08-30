@@ -1,18 +1,19 @@
 package dataType;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 
 public class DataSalida {
 	
 	private String nombre;
-	private Date fecha;
+	private LocalDate fecha;
 	private Integer hora;
 	private Integer turistaMax;
 	private String lugar;
-	private Date fechaAlta;
+	private LocalDate fechaAlta;
 	
-	public DataSalida(String nombre, Date fecha, Integer hora, Integer turistaMax, String lugar, Date fechaAlta) {
+	public DataSalida(String nombre, LocalDate fecha, Integer hora, Integer turistaMax, String lugar, LocalDate fechaAlta) {
 		super();
 		this.nombre = nombre;
 		this.fecha = fecha;
@@ -30,11 +31,11 @@ public class DataSalida {
 		this.nombre = nombre;
 	}
 
-	public Date getFecha() {
+	public LocalDate getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
 	}
 
@@ -62,11 +63,11 @@ public class DataSalida {
 		this.lugar = lugar;
 	}
 
-	public Date getFechaAlta() {
+	public LocalDate getFechaAlta() {
 		return fechaAlta;
 	}
 
-	public void setFechaAlta(Date fechaAlta) {
+	public void setFechaAlta(LocalDate fechaAlta) {
 		this.fechaAlta = fechaAlta;
 	}
 

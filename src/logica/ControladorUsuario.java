@@ -109,7 +109,7 @@ public class ControladorUsuario implements IControladorUsuario {
       	return result;	 
     }
     
-     public List<String> getProveedoresPersistencia() {      // Devuelve la tabla completa de los usuarios en array
+     public List<String> getProveedoresPersistencia() { // Devuelve la tabla completa de los usuarios en array
         
         
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Entrega1");
@@ -136,10 +136,7 @@ public class ControladorUsuario implements IControladorUsuario {
         }
         	if (usuario instanceof DataProveedor)
         	nuevoUsuario = new Proveedor (usuario.getNombre(),usuario.getApellido(),usuario.getCedulaIdentidad(),((DataProveedor) usuario).getDescripcion());
-        		
-        System.out.println(nuevoUsuario.getNombre());
-		System.out.println(nuevoUsuario.getApellido());
-		
+   
 		if (usuario instanceof DataTurista)
 		   //System.out.println(((Turista) nuevoUsuario).getNacionalidad());
 			System.out.println("Soy Turista");

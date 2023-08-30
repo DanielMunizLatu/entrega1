@@ -8,8 +8,12 @@ import dataType.DataActividad;
 import dataType.DataSalida;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Persistence;
 
 @Entity
 public class Actividad {
@@ -77,6 +81,28 @@ public class Actividad {
 		salidas.add(i);
 	}
 	
+	public void agregarSalidaPersistencia(Actividad a) {
+		//Salida i = new Salida(sali.getNombre(),sali.getFecha(),sali.getHora(),sali.getTuristaMax(),sali.getLugar(),sali.getFechaAlta());
+		 
+		// ENTITY PARA PERSISTENCIA
+	  	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Entrega1");
+	  	EntityManager em = emf.createEntityManager();
+
+	  	EntityTransaction tx = em.getTransaction();
+	  	
+	  	tx.begin();
+		
+			
+			 // ES MERGE PORQUE ESTOY EDITANDO LA ACTIVIDAD AGREGANDO PERSISTENCIA
+	        em.merge(a);
+	        System.out.println("Persisti usuario");
+			tx.commit();
+			
+			em.close();
+			emf.close();
+		
+		//salidas.add(i);
+	}
 	public void borrarSalida(String nombre){
 		int i = 0;
 		Salida sali;
