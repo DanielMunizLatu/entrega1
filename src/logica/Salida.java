@@ -9,8 +9,12 @@ import dataType.DataInscripcion;
 import dataType.DataSalida;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Persistence;
 
 @Entity
 public class Salida {
@@ -97,8 +101,36 @@ public class Salida {
 	// AHORA LOS METODOS PARA MANEJAR LA LISTA DE INSCRIPCIONES
 	
 	public void agregarInscripcion(DataInscripcion insc) {
-		Inscripcion i = new Inscripcion(insc.getId(),insc.getFechaInscripcion(),insc.getCantidadTuristas(),insc.getCosto(),insc.getTurista());
+		
+		// Tengo que traer el objeto turista con el dato de su nombre
+		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("Entrega1");
+       	 EntityManager em = emf.createEntityManager();
+	     EntityTransaction tx = em.getTransaction();
+	    	
+	     tx.begin(); 
+	      
+         Turista t = em.find(logica.Turista.class,insc.getTurista());              
+         
+	     tx.commit();
+	 	
+	 	
+	 	 // Luego que tengo el turista agrego la inscripcion a las inscripciones de la salida
+		Inscripcion i = new Inscripcion(insc.getFechaInscripcion(),insc.getCantidadTuristas(),insc.getCosto(),t);
 		inscripciones.add(i);
+		
+		 // Ahora agrego a la base   	
+	     tx.begin(); 
+	      
+        em.persist(i);              // Persiste la Inscripcion
+        
+	     tx.commit();
+	 		
+	 	 em.close();
+	 	 emf.close();
+		
+		// Ahora a la base
+		
+		
 	}
 	
 	public ArrayList<DataInscripcion> obtenerInscripciones(){

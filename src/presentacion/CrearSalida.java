@@ -273,6 +273,7 @@ public class CrearSalida extends JInternalFrame{
         if (checkFormulario()) {
             DataSalida ds=null;   
          	ds = new DataSalida(nSalida, date,inthora,intmax, lugar, dateAlta);
+         	
          	// Tengo que buscar la actividad por el nombre y luego agregarle la salida
          	 ManejadorActividad ma = ManejadorActividad.getinstance();
  	         Actividad a = ma.obtenerActividadPersistencia(valorCombo);  // Lo voy a buscar a la base
@@ -280,8 +281,7 @@ public class CrearSalida extends JInternalFrame{
  	         //System.out.println("voy a guardar");
 			 a.agregarSalida(ds); // Esto registra al objeto pasandole el DataType, metodo de Actividad
 				
-			 
-             a.agregarSalidaPersistencia(a)	;		 
+			 a.agregarSalidaPersistencia(a)	;		 
  
 
              // Muestro exito de la operacion

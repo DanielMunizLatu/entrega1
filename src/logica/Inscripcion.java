@@ -1,5 +1,6 @@
 package logica;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import dataType.DataInscripcion;
@@ -17,7 +18,7 @@ public class Inscripcion {
 	 @Id
 	 @GeneratedValue(strategy = GenerationType.IDENTITY) // Clave primaria autogenerada
 	private long id;
-	private Date fechaInscripcion;
+	private LocalDate fechaInscripcion;
 	private Integer CantidadTuristas;
 	private Integer Costo;
 	@OneToOne(cascade = CascadeType.PERSIST)
@@ -28,9 +29,9 @@ public class Inscripcion {
 		super();
 	}
 	
-	public Inscripcion(long id,Date fechaInscripcion, Integer cantidadTuristas, Integer costo,Turista Turi) {
+	public Inscripcion(LocalDate fechaInscripcion, Integer cantidadTuristas, Integer costo,Turista Turi) {
 		super();
-		this.id=id;
+		//this.id=id;
 		this.fechaInscripcion = fechaInscripcion;
 		this.CantidadTuristas = cantidadTuristas;
 		this.Costo = costo;
@@ -61,11 +62,11 @@ public class Inscripcion {
 		this.nickTurista = Turista;
 	}
 
-	public Date getFechaInscripcion() {
+	public LocalDate getFechaInscripcion() {
 		return fechaInscripcion;
 	}
 
-	public void setFechaInscripcion(Date fechaInscripcion) {
+	public void setFechaInscripcion(LocalDate fechaInscripcion) {
 		this.fechaInscripcion = fechaInscripcion;
 	}
 
@@ -86,6 +87,6 @@ public class Inscripcion {
 	}
 	
 	public DataInscripcion getInscripcion() {
-		return new DataInscripcion(this.getId(),this.getFechaInscripcion(),this.getCantidadTuristas(),this.getCosto(),this.getnickTurista());
+		return new DataInscripcion(this.getFechaInscripcion(),this.getCantidadTuristas(),this.getCosto(),this.getnickTurista().getNombre());
 	}
 }

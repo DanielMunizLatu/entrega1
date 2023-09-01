@@ -93,13 +93,13 @@ public class Actividad {
 	  	tx.begin();
 		
 			
-			 // ES MERGE PORQUE ESTOY EDITANDO LA ACTIVIDAD AGREGANDO PERSISTENCIA
-	        em.merge(a);
-	        System.out.println("Persisti usuario");
-			tx.commit();
+	     // ES MERGE PORQUE ESTOY EDITANDO LA ACTIVIDAD AGREGANDO PERSISTENCIA
+	    em.merge(a);
+	    System.out.println("Persisti usuario");
+	    tx.commit();
 			
-			em.close();
-			emf.close();
+		em.close();
+		emf.close();
 		
 		//salidas.add(i);
 	}
@@ -124,5 +124,26 @@ public class Actividad {
 		}
 		return lista;
 	}
-
+	
+	// Traer el objeto Salida, buscando por su nombre y dentro de la actividad
+	
+	public Salida obtenerSalida(String nomSalida) {
+		
+		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("Entrega1");
+       	 EntityManager em = emf.createEntityManager();
+	     EntityTransaction tx = em.getTransaction();
+	    	
+	     tx.begin();                   
+	    
+	     Salida s = em.find(logica.Salida.class,nomSalida);              
+         
+	     tx.commit();
+	 		
+	 	 em.close();
+	 	 emf.close();
+		
+		
+		return s;
+	
+}
 }

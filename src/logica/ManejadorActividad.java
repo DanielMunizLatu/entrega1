@@ -70,7 +70,7 @@ public class ManejadorActividad {
 	 	 em.close();
 	 	 emf.close();
 	        
-	 		return a;             
+	 	return a;             
 	    }
 	 
 	 public Actividad[] getActividades() {      // Devuelve la coleccion completa de las actividades en array

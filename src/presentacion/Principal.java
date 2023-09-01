@@ -28,7 +28,8 @@ public class Principal {
     private ModificarUsuario modUsrInternalFrame; // Frame para modificar el usuario
 	private IControladorActividad ICA;
     private CrearActividad creActiInternalFrame;  // Frame para alta de actividad
-    private CrearSalida creSaliInternalFrame;
+    private CrearSalida creSaliInternalFrame;     // Frame de salida
+    private CrearInscripcion creInscInternalFrame;  // Frame de inscripcion
 
     /**
      * Launch the application.
@@ -86,6 +87,12 @@ public class Principal {
         creSaliInternalFrame.setLocation(30, 35);
         creSaliInternalFrame.setVisible(false);
         
+        // El de crear Inscripcion
+        creInscInternalFrame = new CrearInscripcion(ICA,ICU);
+       
+        creInscInternalFrame.setLocation(30, 35);
+        creInscInternalFrame.setVisible(false);
+        
         frmGestionDeUsuarios.getContentPane().setLayout(null);
 
         /*Agrego los  internos al principal */
@@ -95,6 +102,7 @@ public class Principal {
         frmGestionDeUsuarios.getContentPane().add(modUsrInternalFrame); 
         frmGestionDeUsuarios.getContentPane().add(creActiInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(creSaliInternalFrame);
+        frmGestionDeUsuarios.getContentPane().add(creInscInternalFrame);
         
     }
 
@@ -186,7 +194,6 @@ public class Principal {
                 // Muestro el InternalFrame para registrar actividad
             	creActiInternalFrame.cargarProveedoresPersistencia();     // PARA CARGAR COMBO PROVEEDORES
             	creActiInternalFrame.setVisible(true);                   // Pongo visible el internalFrame 
-            
             	
             }
         });
@@ -211,9 +218,26 @@ public class Principal {
             }
         });
         menuSalidas.add(creRegistrarSalida);         // Agrego el registrar a Actividades
-       
-   
-     
-
+  
+        
+        // Ahora uno nuevo menu para Inscripciones
+        
+        JMenu menuInscripciones = new JMenu("Inscripciones");      // Al mismo nivel que Sistema
+        menuBar.add(menuInscripciones);   
+        
+      // Abajo de este el registrar Inscripcion
+        
+        JMenuItem creRegistrarInscripcion = new JMenuItem("Registrar y Consultar");
+        creRegistrarInscripcion.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                
+            	// Muestro el InternalFrame para registrar salida
+            	creInscInternalFrame.cargarActividadPersistencia();     // PARA CARGAR COMBO ACTIVIDADES
+            	creInscInternalFrame.cargarTuristaPersistencia();
+            	creInscInternalFrame.setVisible(true);
+            	System.out.println("Hola insc");
+            }
+        });
+        menuInscripciones.add(creRegistrarInscripcion);         // Agrego el registrar a Menu Inscripciones
     }
 }
