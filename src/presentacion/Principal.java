@@ -30,7 +30,7 @@ public class Principal {
     private CrearActividad creActiInternalFrame;  // Frame para alta de actividad
     private CrearSalida creSaliInternalFrame;     // Frame de salida
     private CrearInscripcion creInscInternalFrame;  // Frame de inscripcion
-
+    private ConsultarSalida conSalidaInternalFrame;  // Frame consulta de salida
     /**
      * Launch the application.
      */
@@ -82,14 +82,19 @@ public class Principal {
         creActiInternalFrame.setLocation(30, 35);
         creActiInternalFrame.setVisible(false);
         
+              
         // El de crear Salida
         creSaliInternalFrame = new CrearSalida(ICA);
         creSaliInternalFrame.setLocation(30, 35);
         creSaliInternalFrame.setVisible(false);
         
+        // El de consultar Salida
+        conSalidaInternalFrame = new ConsultarSalida(ICA);
+        conSalidaInternalFrame.setLocation(30, 35);
+        conSalidaInternalFrame.setVisible(false);
+        
         // El de crear Inscripcion
         creInscInternalFrame = new CrearInscripcion(ICA,ICU);
-       
         creInscInternalFrame.setLocation(30, 35);
         creInscInternalFrame.setVisible(false);
         
@@ -103,7 +108,8 @@ public class Principal {
         frmGestionDeUsuarios.getContentPane().add(creActiInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(creSaliInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(creInscInternalFrame);
-        
+        frmGestionDeUsuarios.getContentPane().add(conSalidaInternalFrame);
+               
     }
 
     /**
@@ -198,7 +204,6 @@ public class Principal {
             }
         });
         menuActividades.add(creRegistrarActividad);                     // Agrego el registrar a Actividades
-        
             
        // Ahora uno nuevo menu para Salidas
         
@@ -207,7 +212,7 @@ public class Principal {
         
       // Abajo de este el registrar Salida
         
-        JMenuItem creRegistrarSalida = new JMenuItem("Registrar y Consultar");
+        JMenuItem creRegistrarSalida = new JMenuItem("Registrar");
         creRegistrarSalida.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 
@@ -219,8 +224,20 @@ public class Principal {
         });
         menuSalidas.add(creRegistrarSalida);         // Agrego el registrar a Actividades
   
+        JMenuItem conConsultarSalida = new JMenuItem("Consultar");
+        conConsultarSalida.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                
+            	// Muestro el InternalFrame para registrar salida
+            	conSalidaInternalFrame.cargarActividadesPersistencia();     // PARA CARGAR COMBO ACTIVIDADES
+            	conSalidaInternalFrame.setVisible(true);
+            	System.out.println("Hola CONSULTA salida");
+            	
+            }
+        });
+        menuSalidas.add(conConsultarSalida);         // Agrego el registrar a Actividades
         
-        // Ahora uno nuevo menu para Inscripciones
+        // Nuevo menu para Inscripciones
         
         JMenu menuInscripciones = new JMenu("Inscripciones");      // Al mismo nivel que Sistema
         menuBar.add(menuInscripciones);   
@@ -235,7 +252,7 @@ public class Principal {
             	creInscInternalFrame.cargarActividadPersistencia();     // PARA CARGAR COMBO ACTIVIDADES
             	creInscInternalFrame.cargarTuristaPersistencia();
             	creInscInternalFrame.setVisible(true);
-            	System.out.println("Hola insc");
+            	
             }
         });
         menuInscripciones.add(creRegistrarInscripcion);         // Agrego el registrar a Menu Inscripciones

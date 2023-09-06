@@ -7,6 +7,7 @@ import java.util.List;
 
 import dataType.DataInscripcion;
 import dataType.DataSalida;
+import excepciones.ActividadNoExisteException;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
@@ -100,7 +101,7 @@ public class Salida {
 	
 	// AHORA LOS METODOS PARA MANEJAR LA LISTA DE INSCRIPCIONES
 	
-	public void agregarInscripcion(DataInscripcion insc) {
+	public void agregarInscripcion(DataInscripcion insc,Salida s) {
 		
 		// Tengo que traer el objeto turista con el dato de su nombre
 		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("Entrega1");
@@ -113,23 +114,20 @@ public class Salida {
          
 	     tx.commit();
 	 	
-	 	
-	 	 // Luego que tengo el turista agrego la inscripcion a las inscripciones de la salida
+	 	// Luego que tengo el turista agrego la inscripcion a las inscripciones de la salida
 		Inscripcion i = new Inscripcion(insc.getFechaInscripcion(),insc.getCantidadTuristas(),insc.getCosto(),t);
-		inscripciones.add(i);
+		inscripciones.add(i);  // Esto lo hacen en memoria
+		// Tengo que editar (merge la salida, agregando la inscripcion)
 		
 		 // Ahora agrego a la base   	
 	     tx.begin(); 
 	      
-        em.persist(i);              // Persiste la Inscripcion
+         em.merge(s);              // Persiste la Salida con la inscripcion
         
 	     tx.commit();
 	 		
 	 	 em.close();
 	 	 emf.close();
-		
-		// Ahora a la base
-		
 		
 	}
 	
@@ -140,5 +138,23 @@ public class Salida {
 		}
 		return lista;
 	}
+ public Actividad obtenerSalidasPersistencia(String nom) { 
+		 
+		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("Entrega1");
+       	 EntityManager em = emf.createEntityManager();
+	     EntityTransaction tx = em.getTransaction();
+	    	
+	     tx.begin();                   
+	    
+	     Actividad a = em.find(logica.Actividad.class,nom);              
+         
+	     tx.commit();
+	 		
+	 	 em.close();
+	 	 emf.close();
+	        
+	 	return a;             
+	    }
+ 
   
 }

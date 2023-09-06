@@ -1,15 +1,20 @@
 package logica;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dataType.DataActividad;
+import dataType.DataInscripcion;
+import dataType.DataSalida;
 import dataType.DataTurista;
 import excepciones.ActividadNoExisteException;
 import excepciones.ActividadRepetidaException;
+import excepciones.SalidaNoExisteException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 
 
 public class ControladorActividad implements IControladorActividad{
@@ -88,23 +93,81 @@ public class ControladorActividad implements IControladorActividad{
 	        
 	        // Cargo el objeto con el Datatype
 	        nuevaActividad = new Actividad (actividad.getNombre(),actividad.getCosto(),actividad.getFechaHasta(),actividad.getProve());
-	        
-			
+	       
 	        // Agrego el usuario a la coleccion
 	        ma.addActividad(nuevaActividad);
 	    }
 	    
 	    public List<String> getActividadesPersistencia() { // Devuelve la tabla completa de las actividades en array
-	        
-	        
+	       	    
 	        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Entrega1");
 			EntityManager em = emf.createEntityManager();  
 	        
 	         //Query con JPQL. Obtenemos la informacion de todos los usuario.
-	        Query query = em.createQuery("SELECT u.nombre  FROM Actividad u");
+	        Query query = em.createQuery("SELECT u.nombre FROM Actividad u");
 	      
 	        List<String> result = query.getResultList();
 	     	      
 	      	return result;	 
 	    }
+	    
+	    public DataSalida verInfoSalida(String actividad,String salida) throws SalidaNoExisteException {
+		      
+	    	 DataSalida ds = null;
+	    	 EntityManagerFactory emf = Persistence.createEntityManagerFactory("Entrega1");
+	  		 EntityManager em = emf.createEntityManager();
+	       
+	  		System.out.println("Antes de consulta"); 
+	          TypedQuery<Salida> query = em.createQuery("SELECT s FROM Actividad a JOIN a.salidas s "
+	          		+ "WHERE a.nombre =:nombreAct "
+	          		+ "and s.nombre=:nombreSal",Salida.class);
+	          query.setParameter("nombreAct", actividad);
+	          query.setParameter("nombreSal", salida);
+	          List<Salida> result = query.getResultList();
+	          
+	  		  // Cargo el combo de salida con el resultado de jpql
+	  		  for (Salida dato : result) {
+	  			System.out.println("Nombre de salida");  
+	  			System.out.println(dato.getNombre());
+	            ds=dato.getDataSalida();                 // Cargo el datasalida
+	          }
+	  		 em.close();
+	  		 emf.close();
+	       
+	  		return ds;
+
+	    } 
+	    public void agregarInscripcion(String actividadCombo,String salidaCombo,DataInscripcion di) {
+	    	// Tengo que buscar la actividad por el nombre HAY QUE RECUPERAR LOS OBJETOS
+	     	 ManejadorActividad ma = ManejadorActividad.getinstance();
+	         Actividad a = ma.obtenerActividadPersistencia(actividadCombo);  // Lo voy a buscar con find
+	         
+	         // Tengo que buscar la salida por el nombre y a la actividad
+	         
+	         Salida s=a.obtenerSalida(salidaCombo); 
+	          
+	          // Esto registra al objeto pasandole el DataType a la lista de inscripciones       
+	    		 s.agregarInscripcion(di,s); 
+	     }
+	    public List<String> cargarSalidasPersistencia(String seleccion) {
+	    	
+	    	 List<String> ds= new ArrayList<>();
+	         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Entrega1");
+	  		 EntityManager em = emf.createEntityManager();
+	       
+	          TypedQuery<Salida> query = em.createQuery("SELECT s FROM Actividad a JOIN a.salidas s WHERE a.nombre =:nombreAct",Salida.class);
+	          query.setParameter("nombreAct", seleccion);
+	          List<Salida> result = query.getResultList();
+	           
+	          
+	  		// Cargo el combo de salida con el resultado de jpql
+	  		for (Salida dato : result) {
+	  			System.out.println(dato.getNombre());
+	  			ds.add(dato.getNombre());         // Cargo el combo de salidas
+	          }
+	  		em.close();
+	  		emf.close();
+	  		return ds;
+	    }
+	     
 }

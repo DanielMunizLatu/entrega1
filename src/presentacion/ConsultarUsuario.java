@@ -19,7 +19,7 @@ import java.awt.event.ActionListener; // Para los eventos. ej de boton
 import java.awt.event.ActionEvent;
 
 /**
- * JInternalFrame que permite consultar la información de un usuario del sistema.
+ * JInternalFrame que permite consultar la informacion de un usuario del sistema.
  * @author TProg2017
  *
  */

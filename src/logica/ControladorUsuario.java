@@ -18,8 +18,6 @@ import jakarta.persistence.Query;
  */
 
 public class ControladorUsuario implements IControladorUsuario {
-
-	
 	
     public ControladorUsuario() {
     }
@@ -110,13 +108,12 @@ public class ControladorUsuario implements IControladorUsuario {
     }
     
      public List<String> getProveedoresPersistencia() { // Devuelve la tabla completa de los usuarios en array
-        
-        
+             
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Entrega1");
 		EntityManager em = emf.createEntityManager();  
         
          //Query con JPQL. Obtenemos la informacion de todos los usuario.
-        Query query = em.createQuery("SELECT u.nombre  FROM Usuario u");
+        Query query = em.createQuery("SELECT u.nombre  FROM Usuario u WHERE Type(u)=Turista");
       
         List<String> result = query.getResultList();
      	      

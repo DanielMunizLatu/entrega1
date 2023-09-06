@@ -2,12 +2,14 @@ package logica;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.TypedQuery;
 
 public class ManejadorActividad {
 	
@@ -87,4 +89,23 @@ public class ManejadorActividad {
 	            return actividades;
 	        }
 	    }
+	 public List<Inscripcion> obtenerInscripcionPersistencia(String actividad,String salida) {
+
+		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("Entrega1");
+       	 EntityManager em = emf.createEntityManager();
+	     
+	    	
+	     TypedQuery<Inscripcion> query = em.createQuery("SELECT i FROM Actividad a JOIN a.salidas s JOIN s.inscripciones i "
+	     		+ "WHERE a.nombre =:nombreAct and s.nombre=:nombreSal",Inscripcion.class);
+         query.setParameter("nombreAct", actividad);
+         query.setParameter("nombreSal", salida);
+         
+         List<Inscripcion> result = query.getResultList();
+	      
+         em.close();
+	 	 emf.close();
+	    
+	 	 return result;
+	 	 
+	 }
 }

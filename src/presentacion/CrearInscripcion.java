@@ -13,17 +13,10 @@ import javax.swing.JTextField;
 
 
 import dataType.DataInscripcion;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-import jakarta.persistence.Query;
-import jakarta.persistence.TypedQuery;
-import logica.Actividad;
+
 import logica.IControladorActividad;
 import logica.IControladorUsuario;
-import logica.Inscripcion;
-import logica.ManejadorActividad;
-import logica.Salida;
+
 
 
 import java.awt.GridBagConstraints;
@@ -31,7 +24,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -49,13 +41,7 @@ public class CrearInscripcion extends JInternalFrame{
 	
 	private IControladorUsuario controlUsu;
 	private IControladorActividad controlAct;
-	private JButton btnAceptar;
-	private JButton btnConsultar;
-	private JButton btnModificar;
-	private JButton btnSalidas;
-	private JLabel lblNewLabel;
-
-
+	
 	public CrearInscripcion(IControladorActividad ica,IControladorUsuario icu) {
 		
 		// Se inicializa con el controlador de actividades
@@ -99,16 +85,16 @@ public class CrearInscripcion extends JInternalFrame{
 		// Combo Box para actividad
         actividad = new JComboBox<String>();
         salida = new JComboBox<String>();
+        // Escucha en el combo actividad
         actividad.addActionListener(new ActionListener() {
 	     	
-	    	 @Override
+	    	// @Override
 	         public void actionPerformed(ActionEvent e) {
-	    		 System.out.println("Pinche actividad");
 	    		 
-	    		// cargarSalidasPersistencia(actividad);
+	    		// Cargar Salida
 	    		 String seleccion = (String) actividad.getSelectedItem();
-	    		 cargarSalidasPersistencia(seleccion); 
-	          
+	    		 cargarSalidas(seleccion); 
+	           
 	         }
 	     });
         GridBagConstraints gbc_proveedor = new GridBagConstraints();
@@ -130,22 +116,7 @@ public class CrearInscripcion extends JInternalFrame{
 		gbc_lblNewLabel_9.gridy = 2;
 		getContentPane().add(lblNewLabel_9, gbc_lblNewLabel_9);
 		
-		// Combo Box para para la salida
-		//JComboBox<String> salida = new JComboBox<String>(new String[]{"",""});// Sin esto no funciona el listener
-		//JComboBox<String> actividad = new JComboBox<String>(new String[]{"Playa","Compras"});
-		//System.out.println("antes combo");
-        // Cargarlo
-        //salida.addActionListener(new ActionListener() {
-	     	
-	   // 	 @Override
-	   //      public void actionPerformed(ActionEvent e) {
-	    		// System.out.println("Pinche salidas");
-	    		// String seleccion = (String) actividad.getSelectedItem();
-	    		// cargarSalidasPersistencia(seleccion);
-	          
-	   //      }
-	   //  });
-	    		 
+	  		 
         GridBagConstraints gbc_salida = new GridBagConstraints();
         gbc_salida.gridwidth = 2;
         gbc_salida.insets = new Insets(0, 0, 5, 5);
@@ -156,10 +127,9 @@ public class CrearInscripcion extends JInternalFrame{
         gbc_salida.gridwidth = 2;
         gbc_salida.gridx = 1;
         
-      
         getContentPane().add(salida, gbc_salida);
 		
-        
+       
     	JLabel lblNewLabel_95 = new JLabel("Turista");
 		GridBagConstraints gbc_lblNewLabel_95 = new GridBagConstraints();
 		gbc_lblNewLabel_95.insets = new Insets(0, 0, 5, 5);
@@ -176,8 +146,7 @@ public class CrearInscripcion extends JInternalFrame{
         gbc_turista.gridx = 1;
         gbc_turista.gridy = 3;
         //GridBagConstraints gbc_tipoUsuario = new GridBagConstraints();
-        gbc_turista.gridwidth = 2;
-        gbc_turista.gridx = 1;
+              
         getContentPane().add(turista, gbc_turista);
         
         
@@ -198,9 +167,7 @@ public class CrearInscripcion extends JInternalFrame{
     	     gbc_textFechaIns.gridy = 4;
     	     getContentPane().add(textFieldFechaIns, gbc_textFechaIns);
     	     textFieldFechaIns.setColumns(10);
-        
-		
-		
+       
 	     JLabel lblNewLabel_45 = new JLabel("Cantidad Turistas");
 			GridBagConstraints gbc_lblNewLabel_45 = new GridBagConstraints();
 			gbc_lblNewLabel_45.insets = new Insets(0, 0, 5, 5);
@@ -238,7 +205,7 @@ public class CrearInscripcion extends JInternalFrame{
 	     
 	     JButton btnNewButton = new JButton("Agregar");
 	     btnNewButton.addActionListener(new ActionListener() {
-	     	public void actionPerformed(ActionEvent e) {
+	     public void actionPerformed(ActionEvent e) {
 	     		 cmdRegistroInscripcionActionPerformed(e);
 	     	}
 	     });
@@ -248,12 +215,18 @@ public class CrearInscripcion extends JInternalFrame{
 	     gbc_btnNewButton.gridy = 8;
 	     getContentPane().add(btnNewButton, gbc_btnNewButton);
 	     
+	     JButton btnNewButtonC = new JButton("Consultar");
+	     btnNewButtonC.addActionListener(new ActionListener() {
+	     public void actionPerformed(ActionEvent e) {
+	     		 cmdConsultarInscripcionActionPerformed(e);
+	     	}
+	     });
+	     GridBagConstraints gbc_btnNewButtonC = new GridBagConstraints();
+	     gbc_btnNewButtonC.insets = new Insets(0, 0, 0, 5);
+	     gbc_btnNewButtonC.gridx = 2;
+	     gbc_btnNewButtonC.gridy = 8;
+	     getContentPane().add(btnNewButtonC, gbc_btnNewButtonC);
 	     
-	     System.out.println("entre a main");
-	     // Cargo las salidas en funcion de la seleccion en actividad
-	     
-	
-     
 	    System.out.println("Se termino el constructor");
 	}  // Aca termina el constructor
 	
@@ -269,33 +242,25 @@ public class CrearInscripcion extends JInternalFrame{
 		   actividad.setModel(model);
     }
   
-    public void cargarSalidasPersistencia(String seleccion) {
+    public void cargarSalidas(String seleccion) {
     	
-    	 //JComboBox<String> salida = new JComboBox<String>(new String[]{"",""});
     	 salida.removeAllItems();
-          
-          // Obtener la selección del combo de selección
-          EntityManagerFactory emf = Persistence.createEntityManagerFactory("Entrega1");
-  		  EntityManager em = emf.createEntityManager();
-          //String seleccion = (String) actividad.getSelectedItem();
-          TypedQuery<Salida> query = em.createQuery("SELECT s FROM Actividad a JOIN a.salidas s WHERE a.nombre =:nombreAct",Salida.class);
-          query.setParameter("nombreAct", seleccion);
-          List<Salida> result = query.getResultList();
-          
-  		// Lógica para cargar el modelo del combo cargado
-  		for (Salida dato : result) {
-  			System.out.println(dato.getNombre());
-             salida.addItem(dato.getNombre());         // Cargo el combo de salidas
+         List<String> ds=null;   
+         // Llamo al metodo en capa logica, controlador de Actividad que me devuelve lista de string
+         ds=controlAct.cargarSalidasPersistencia(seleccion) ;
+  	    // Cargo el combo de salida con el resultado de jpql
+  		for  (int i = 0; i < ds.size(); i++) {
+  			System.out.println(ds.get(i));
+             salida.addItem(ds.get(i));         // Cargo el combo de salidas
           }
-  		em.close();
-  		emf.close();
+  		
     }
     
     // Metodo para cargar a los turistas
     public void cargarTuristaPersistencia() {
      	
   	   DefaultComboBoxModel<String> model;                // Este modelo se crea para carga el combo 
-         model = new DefaultComboBoxModel<String>();                   //Aca se carga
+       model = new DefaultComboBoxModel<String>();                   //Aca se carga
  		   for (String opcion : controlUsu.getProveedoresPersistencia()) {
  		        model.addElement(opcion);
  		    }
@@ -305,9 +270,7 @@ public class CrearInscripcion extends JInternalFrame{
 	
     protected void cmdRegistroInscripcionActionPerformed(ActionEvent arg0) {
         // TODO Auto-generated method stub
-
-    	Inscripcion inscripcion = new Inscripcion();
-    	
+    	    	
         // Obtengo datos de los controles Swing
     	String actividadCombo= (String ) actividad.getSelectedItem();
         String salidaCombo=(String) salida.getSelectedItem();
@@ -328,25 +291,15 @@ public class CrearInscripcion extends JInternalFrame{
         // Costo Integer
         String costo=this.textFieldCosto.getText();
         int intCosto=Integer.parseInt(costo);
-        
-      
+              
         if (checkFormulario()) {
             DataInscripcion di=null;   
          	di = new DataInscripcion(date,intTur,intCosto,turistaCombo);
-         	
-        	// Tengo que buscar la actividad por el nombre 
-        	ManejadorActividad ma = ManejadorActividad.getinstance();
-	        Actividad a = ma.obtenerActividadPersistencia(actividadCombo);  // Lo voy a buscar a la base
-	        
-	        // Tengo que buscar la salida por el nombre y a la actividad
-	        
-	        Salida s=a.obtenerSalida(salidaCombo); 
-	         
-	         // Esto registra al objeto pasandole el DataType a la lista de inscripciones       
-			 s.agregarInscripcion(di); 
-		
+            // Agrego con el controlador de Inscripcion
+         	controlAct.agregarInscripcion(actividadCombo,salidaCombo,di);
+    
              // Muestro exito de la operacion
-             JOptionPane.showMessageDialog(this, "La salida se ha creado con Exito", "Registrar Salida",
+             JOptionPane.showMessageDialog(this, "La inscripcion se ha creado con Exito", "Registrar Inscripcion",
                         JOptionPane.INFORMATION_MESSAGE);
 
             // Limpio el internal frame antes de cerrar la ventana
@@ -354,6 +307,21 @@ public class CrearInscripcion extends JInternalFrame{
             setVisible(false);
         }
     }
+    //Consultar una inscripcion
+    protected void cmdConsultarInscripcionActionPerformed(ActionEvent arg0) {
+    	 
+    	DataInscripcion di;  // Tengo cargar un Data Inscripcion para mandar a capa Logica
+    	
+    	// Obtengo datos de los controles Swing
+    	String actividadCombo= (String ) actividad.getSelectedItem();
+        String salidaCombo=(String) salida.getSelectedItem();
+        String turistaCombo=(String) turista.getSelectedItem();
+        
+     //   di=controlAct.verInfoInscripcion(actividadCombo,salidaCombo,turistaCombo);
+       
+        
+    }
+    
     private boolean checkFormulario() {
  	   String nombreA = this.textFieldFechaIns.getText();
         String fecha = this.textFieldCosto.getText();

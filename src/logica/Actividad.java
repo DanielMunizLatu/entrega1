@@ -82,7 +82,7 @@ public class Actividad {
 	}
 	
 	public void agregarSalidaPersistencia(Actividad a) {
-		//Salida i = new Salida(sali.getNombre(),sali.getFecha(),sali.getHora(),sali.getTuristaMax(),sali.getLugar(),sali.getFechaAlta());
+		
 		 
 		// ENTITY PARA PERSISTENCIA
 	  	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Entrega1");
@@ -92,7 +92,7 @@ public class Actividad {
 	  	
 	  	tx.begin();
 		
-			
+		
 	     // ES MERGE PORQUE ESTOY EDITANDO LA ACTIVIDAD AGREGANDO PERSISTENCIA
 	    em.merge(a);
 	    System.out.println("Persisti usuario");
