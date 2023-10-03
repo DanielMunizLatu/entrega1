@@ -3,6 +3,7 @@ package presentacion;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -212,17 +213,19 @@ public class ModificarUsuario extends JInternalFrame {
         String ciU = this.textFieldCI.getText();
         String nac =this.textFieldNacionalidad.getText(); // Nacionalidad para TUrista
         String desc = this.textFieldDescripcion.getText(); // Descripcion para Proveedor
+        File file = new File("C:/Users/instalacion/Pictures/Saved Pictures/2.jpg");  
+        byte[] foto = new byte[(int) file.length()];
 
         if (checkFormulario()) {
           
             	// Cargar el DataUsuario
              	DataUsuario du=null;
 				if (nac!="") {
-					du = new DataTurista(nombreU, apellidoU, ciU,nac);
+					du = new DataTurista(nombreU, apellidoU,ciU,foto,nac);
 				
 				}	
 				else  {
-					du = new DataProveedor(nombreU, apellidoU, ciU,desc); 	
+					du = new DataProveedor(nombreU, apellidoU,ciU,foto,desc); 	
 					
 				}
 				

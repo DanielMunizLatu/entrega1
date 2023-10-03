@@ -11,20 +11,33 @@ public abstract class DataUsuario {
     private String nombre;
     private String apellido;
     private String cedulaIdentidad;
+    private byte[] foto;
 
     public DataUsuario() {
         this.setNombre(new String());
         this.setApellido(new String());
         this.setCedulaIdentidad(new String());
+        this.setFoto(foto);
+        
     }
 
-    public DataUsuario(String nombre, String apellido, String cedulaIdentidad) {
+    public DataUsuario(String nombre, String apellido, String cedulaIdentidad,byte[] foto) {
         this.setNombre(nombre);
         this.setApellido(apellido);
         this.setCedulaIdentidad(cedulaIdentidad);
+        this.setFoto(foto);
+        
     }
 
-    public String getNombre() {
+    public byte[] getFoto() {
+		return foto;
+	}
+
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
+	}
+
+	public String getNombre() {
         return nombre;
     }
 

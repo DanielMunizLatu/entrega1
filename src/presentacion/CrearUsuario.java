@@ -14,6 +14,7 @@ import dataType.DataUsuario;
 import excepciones.UsuarioRepetidoException;
 
 import javax.swing.JTextField;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.GridBagLayout;
@@ -21,8 +22,13 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JFrame;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
+
+import java.io.IOException;
 
 /**
  * JInternalFrame que permite registrar un nuevo usuario al sistema.
@@ -288,7 +294,15 @@ public class CrearUsuario extends JInternalFrame {
         String ciU = this.textFieldCI.getText();
         String nac =this.textFieldNacionalidad.getText(); // Nacionalidad para TUrista
         String desc = this.textFieldDescripcion.getText(); // Descripcion para Proveedor
+        File file = new File("C:\\28778647 Frente.jpg");  // Foto del usuario
+        byte[] foto = new byte[(int) file.length()];
 
+        int tamaño=foto.length;  
+        System.out.println("El tamaño de la foto es"+tamaño);
+        
+     		
+            
+        
         if (checkFormulario()) {
             try {
             	// Hay que cargar el Datatype que corresponda segun el combo box
@@ -299,11 +313,11 @@ public class CrearUsuario extends JInternalFrame {
              	DataUsuario du=null;
 				if (valorCombo=="Turista") {
 					System.out.print("Entro por turista");
-                	du = new DataTurista(nombreU, apellidoU, ciU,nac);
+                	du = new DataTurista(nombreU, apellidoU, ciU,foto,nac);
 				}	
 				if ( valorCombo=="Proveedor") {
 					System.out.print("Entro por proveedor");
-                	du = new DataProveedor(nombreU, apellidoU, ciU,desc); 	
+                	du = new DataProveedor(nombreU, apellidoU, ciU,foto,desc); 	
 				}
 				controlUsr.registrarUsuario(du);  // Esto registra al objeto pasandole el DataType
 

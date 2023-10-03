@@ -16,8 +16,8 @@ public class Proveedor  extends Usuario{
 		super();
 	}
 
-	public Proveedor(String n, String ap, String ci,String desc) {
-		super(n, ap, ci);
+	public Proveedor(String n, String ap, String ci,byte[] foto,String desc) {
+		super(n, ap, ci,foto);
 		this.descripcion=desc;
 		
 	}
@@ -32,7 +32,7 @@ public class Proveedor  extends Usuario{
 
 	@Override
 	public DataUsuario getDataUsuario() {
-		return new DataProveedor(this.getNombre(),this.getApellido(),this.getCedulaIdentidad(),this.getDescripcion());
+		return new DataProveedor(this.getNombre(),this.getApellido(),this.getCedulaIdentidad(),this.getFoto(),this.getDescripcion());
 	}
 
 }

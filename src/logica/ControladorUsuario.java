@@ -34,17 +34,16 @@ public class ControladorUsuario implements IControladorUsuario {
         // Tengo que saber si es Turista o proveedor para luego agregarlo
         Usuario nuevoUsuario=null;
         if (usuario instanceof DataTurista)
-        	nuevoUsuario = new Turista (usuario.getNombre(),usuario.getApellido(),usuario.getCedulaIdentidad(),((DataTurista) usuario).getNacionalidad());
+        	nuevoUsuario = new Turista (usuario.getNombre(),usuario.getApellido(),usuario.getCedulaIdentidad(),usuario.getFoto(),((DataTurista) usuario).getNacionalidad());
         if (usuario instanceof DataProveedor)
-        	nuevoUsuario = new Proveedor (usuario.getNombre(),usuario.getApellido(),usuario.getCedulaIdentidad(),((DataProveedor) usuario).getDescripcion());
+        	nuevoUsuario = new Proveedor (usuario.getNombre(),usuario.getApellido(),usuario.getCedulaIdentidad(),usuario.getFoto(),((DataProveedor) usuario).getDescripcion());
         		
         // Agrego el usuario a la coleccion en memoria
         mu.addUsuario(nuevoUsuario);
         
         // Agrego el usuaroi a la base de datos
         mu.addUsuarioPersistencia(nuevoUsuario);     
-      
-		
+      		
     }
 
     // Devuelvo una DataUsuario para ser mostrado en la capa de presentacion
@@ -128,11 +127,11 @@ public class ControladorUsuario implements IControladorUsuario {
     	    	
         Usuario nuevoUsuario=null;
         if (usuario instanceof DataTurista) {
-        	nuevoUsuario = new Turista (usuario.getNombre(),usuario.getApellido(),usuario.getCedulaIdentidad(),((DataTurista) usuario).getNacionalidad());
+        	nuevoUsuario = new Turista (usuario.getNombre(),usuario.getApellido(),usuario.getCedulaIdentidad(),usuario.getFoto(),((DataTurista) usuario).getNacionalidad());
         	System.out.println("A modificar entro con un data type de turista");
         }
         	if (usuario instanceof DataProveedor)
-        	nuevoUsuario = new Proveedor (usuario.getNombre(),usuario.getApellido(),usuario.getCedulaIdentidad(),((DataProveedor) usuario).getDescripcion());
+        	nuevoUsuario = new Proveedor (usuario.getNombre(),usuario.getApellido(),usuario.getCedulaIdentidad(),usuario.getFoto(),((DataProveedor) usuario).getDescripcion());
    
 		if (usuario instanceof DataTurista)
 		   //System.out.println(((Turista) nuevoUsuario).getNacionalidad());

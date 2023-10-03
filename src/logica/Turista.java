@@ -11,14 +11,12 @@ public class Turista extends Usuario{
 	
 	private String nacionalidad;
 	
-	
-	
 	public Turista() {
 		super();
 	}
 
-	public Turista(String n, String ap, String ci,String nacio) {
-		super(n, ap, ci);
+	public Turista(String n, String ap, String ci,byte[] foto, String nacio) {
+		super(n, ap, ci,foto);
 		this.nacionalidad=nacio;
 		
 	}
@@ -33,6 +31,6 @@ public class Turista extends Usuario{
 
 	@Override
 	public DataUsuario getDataUsuario() {
-		return new DataTurista(this.getNombre(),this.getApellido(),this.getCedulaIdentidad(),this.getNacionalidad());
+		return new DataTurista(this.getNombre(),this.getApellido(),this.getCedulaIdentidad(),this.getFoto(),this.getNacionalidad());
 	}
 }

@@ -4,8 +4,8 @@ public class DataTurista extends DataUsuario{
 	
 	private String nacionalidad;
 
-	public DataTurista(String n, String ap, String ci,String nacionalidad) {
-		super(n,ap,ci);
+	public DataTurista(String n, String ap, String ci,byte[] foto,String nacionalidad) {
+		super(n,ap,ci,foto);
 		this.nacionalidad = nacionalidad;
 	}
 

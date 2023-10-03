@@ -26,7 +26,7 @@ import java.awt.event.ActionEvent;
 @SuppressWarnings("serial")
 public class ConsultarUsuario extends JInternalFrame {
 
-    // Controlador de usuarios que se utilizará para las acciones del JFrame
+    // Controlador de usuarios que se utilizara para las acciones del JFrame
     private IControladorUsuario controlUsr;
     
     // Los componentes graficos se agregan como atributos de la clase

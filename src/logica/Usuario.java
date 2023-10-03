@@ -14,16 +14,28 @@ public abstract class  Usuario {
     private String apellido;
     @Id
     private String cedulaIdentidad;
+    @Lob
+    @Column(name = "FOTO")
+    private byte[] foto;
 
     
-    public Usuario() {
+    public byte[] getFoto() {
+		return foto;
+	}
+
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
+	}
+
+	public Usuario() {
 		super();
 	}
 
-	public Usuario(String n, String ap, String ci) {
+	public Usuario(String n, String ap, String ci,byte[] foto) {
         this.nombre = n;
         this.apellido = ap;
         this.cedulaIdentidad = ci;
+        this.foto=foto;
     }
 
     public String getNombre() {

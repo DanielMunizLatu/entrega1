@@ -4,8 +4,8 @@ public class DataProveedor extends DataUsuario{
 
 	private String descripcion;
 
-	public DataProveedor(String n, String ap, String ci,String descripcion) {
-		super(n,ap,ci);
+	public DataProveedor(String n, String ap, String ci,byte[] foto,String descripcion) {
+		super(n,ap,ci,foto);
 		this.descripcion = descripcion;
 	}
 
